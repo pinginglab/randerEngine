@@ -1,0 +1,69 @@
+{
+    "name": "App",
+    "fields": [
+        {
+            "fieldName": "image",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "network",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "port",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "volume",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "enviroment",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "networks",
+            "otherEntityRelationshipName": "app",
+            "relationshipName": "network",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "images",
+            "otherEntityRelationshipName": "app",
+            "relationshipName": "image",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "ports",
+            "otherEntityRelationshipName": "app",
+            "relationshipName": "port"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "scenes",
+            "otherEntityRelationshipName": "app",
+            "relationshipName": "scenes",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200129094437",
+    "entityTableName": "app",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "randerEngine",
+    "applications": "*",
+    "microserviceName": "randerEngine",
+    "angularJSSuffix": "mySuffix"
+}

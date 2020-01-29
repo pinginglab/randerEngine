@@ -1,0 +1,25 @@
+version: '2'
+services:
+  randerengine-app:
+    image: randerengine
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_CLOUD_CONSUL_PORT=8500
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://randerengine-mariadb:3306/randerengine
+      - JHIPSTER_SLEEP=120 # gives time for mariadb server to start
+  randerengine-mariadb:
+    extends:
+      file: mariadb.yml
+      service: randerengine-mariadb
+  consul:
+    extends:
+      file: consul.yml
+      service: consul
+
+  consul-config-loader:
+    extends:
+      file: consul.yml
+      service: consul-config-loader

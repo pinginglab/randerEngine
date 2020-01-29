@@ -1,0 +1,53 @@
+{
+    "name": "Scenes",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "creater",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "waitingTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "extendTime",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "app",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "app",
+            "otherEntityRelationshipName": "scenes",
+            "relationshipName": "app"
+        }
+    ],
+    "changelogDate": "20200129094436",
+    "entityTableName": "scenes",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "randerEngine",
+    "applications": "*",
+    "microserviceName": "randerEngine",
+    "angularJSSuffix": "mySuffix"
+}

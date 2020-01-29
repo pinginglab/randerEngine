@@ -1,0 +1,34 @@
+{
+    "name": "Images",
+    "fields": [
+        {
+            "fieldName": "creater",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "creatTime",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20200129094439",
+    "entityTableName": "images",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "randerEngine",
+    "applications": "*",
+    "microserviceName": "randerEngine",
+    "angularJSSuffix": "mySuffix"
+}
