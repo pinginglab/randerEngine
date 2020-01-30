@@ -60,7 +60,7 @@ if (project.hasProperty("gae")) {
             mavenBom 'io.github.jhipster:jhipster-dependencies:${jhipster_dependencies_version}'
         }
     }
-    appengineStage.dependsOn thinResolve 
+    appengineStage.dependsOn thinResolve
 }
 
 if (project.hasProperty("zipkin")) {
@@ -193,6 +193,11 @@ dependencies {
     if (!project.hasProperty("gae")) {
         implementation platform("io.github.jhipster:jhipster-dependencies:${jhipster_dependencies_version}")
     }
+    //Thanks for using https://jar-download.com
+    compile group: 'com.github.docker-java', name: 'docker-java-core', version: '3.2.0-rc1'
+    // Thanks for using https://jar-download.com
+    compile group: 'com.github.docker-java', name: 'docker-java', version: '3.0.12'
+
 
     // Use ", version: jhipster_dependencies_version, changing: true" if you want
     // to use a SNAPSHOT release instead of a stable release
