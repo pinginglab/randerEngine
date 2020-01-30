@@ -44,6 +44,10 @@ public class Scenes implements Serializable {
     @Column(name = "app")
     private String app;
 
+    @Lob
+    @Column(name = "other")
+    private String other;
+
     @OneToMany(mappedBy = "scenes")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<App> apps = new HashSet<>();
@@ -148,6 +152,19 @@ public class Scenes implements Serializable {
         this.app = app;
     }
 
+    public String getOther() {
+        return other;
+    }
+
+    public Scenes other(String other) {
+        this.other = other;
+        return this;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
+    }
+
     public Set<App> getApps() {
         return apps;
     }
@@ -201,6 +218,7 @@ public class Scenes implements Serializable {
             ", waitingTime='" + getWaitingTime() + "'" +
             ", extendTime=" + getExtendTime() +
             ", app='" + getApp() + "'" +
+            ", other='" + getOther() + "'" +
             "}";
     }
 }

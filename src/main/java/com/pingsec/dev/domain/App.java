@@ -39,13 +39,17 @@ public class App implements Serializable {
     @Column(name = "enviroment")
     private String enviroment;
 
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Networks network;
+    @Lob
+    @Column(name = "other")
+    private String other;
 
     @OneToOne
     @JoinColumn(unique = true)
-    private Images image;
+    private Networks networks;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Images images;
 
     @OneToMany(mappedBy = "app")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -129,30 +133,43 @@ public class App implements Serializable {
         this.enviroment = enviroment;
     }
 
-    public Networks getNetwork() {
-        return network;
+    public String getOther() {
+        return other;
     }
 
-    public App network(Networks networks) {
-        this.network = networks;
+    public App other(String other) {
+        this.other = other;
         return this;
     }
 
-    public void setNetwork(Networks networks) {
-        this.network = networks;
+    public void setOther(String other) {
+        this.other = other;
     }
 
-    public Images getImage() {
-        return image;
+    public Networks getNetworks() {
+        return networks;
     }
 
-    public App image(Images images) {
-        this.image = images;
+    public App networks(Networks networks) {
+        this.networks = networks;
         return this;
     }
 
-    public void setImage(Images images) {
-        this.image = images;
+    public void setNetworks(Networks networks) {
+        this.networks = networks;
+    }
+
+    public Images getImages() {
+        return images;
+    }
+
+    public App images(Images images) {
+        this.images = images;
+        return this;
+    }
+
+    public void setImages(Images images) {
+        this.images = images;
     }
 
     public Set<Ports> getPorts() {
@@ -164,13 +181,13 @@ public class App implements Serializable {
         return this;
     }
 
-    public App addPort(Ports ports) {
+    public App addPorts(Ports ports) {
         this.ports.add(ports);
         ports.setApp(this);
         return this;
     }
 
-    public App removePort(Ports ports) {
+    public App removePorts(Ports ports) {
         this.ports.remove(ports);
         ports.setApp(null);
         return this;
@@ -219,6 +236,7 @@ public class App implements Serializable {
             ", port='" + getPort() + "'" +
             ", volume='" + getVolume() + "'" +
             ", enviroment='" + getEnviroment() + "'" +
+            ", other='" + getOther() + "'" +
             "}";
     }
 }

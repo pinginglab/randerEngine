@@ -13,7 +13,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Service Implementation for managing {@link Images}.
@@ -61,6 +65,21 @@ public class ImagesServiceImpl implements ImagesService {
             .map(imagesMapper::toDto);
     }
 
+
+
+    /**
+    *  Get all the images where App is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true) 
+    public List<ImagesDTO> findAllWhereAppIsNull() {
+        log.debug("Request to get all images where App is null");
+        return StreamSupport
+            .stream(imagesRepository.findAll().spliterator(), false)
+            .filter(images -> images.getApp() == null)
+            .map(imagesMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     /**
      * Get one images by id.

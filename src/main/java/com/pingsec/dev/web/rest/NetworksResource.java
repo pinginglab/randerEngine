@@ -23,6 +23,7 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing {@link com.pingsec.dev.domain.Networks}.
@@ -90,10 +91,16 @@ public class NetworksResource {
 
      * @param pageable the pagination information.
 
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of networks in body.
      */
     @GetMapping("/networks")
-    public ResponseEntity<List<NetworksDTO>> getAllNetworks(Pageable pageable) {
+    public ResponseEntity<List<NetworksDTO>> getAllNetworks(Pageable pageable, @RequestParam(required = false) String filter) {
+        if ("app-is-null".equals(filter)) {
+            log.debug("REST request to get all Networkss where app is null");
+            return new ResponseEntity<>(networksService.findAllWhereAppIsNull(),
+                    HttpStatus.OK);
+        }
         log.debug("REST request to get a page of Networks");
         Page<NetworksDTO> page = networksService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

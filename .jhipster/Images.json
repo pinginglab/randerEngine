@@ -18,7 +18,15 @@
             "fieldType": "Instant"
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "app",
+            "otherEntityRelationshipName": "images",
+            "relationshipName": "app",
+            "ownerSide": false
+        }
+    ],
     "changelogDate": "20200129094439",
     "entityTableName": "images",
     "dto": "mapstruct",

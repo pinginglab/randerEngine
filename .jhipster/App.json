@@ -21,6 +21,11 @@
             "fieldName": "enviroment",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "other",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
         }
     ],
     "relationships": [
@@ -28,7 +33,7 @@
             "relationshipType": "one-to-one",
             "otherEntityName": "networks",
             "otherEntityRelationshipName": "app",
-            "relationshipName": "network",
+            "relationshipName": "networks",
             "otherEntityField": "id",
             "ownerSide": true
         },
@@ -36,7 +41,7 @@
             "relationshipType": "one-to-one",
             "otherEntityName": "images",
             "otherEntityRelationshipName": "app",
-            "relationshipName": "image",
+            "relationshipName": "images",
             "otherEntityField": "id",
             "ownerSide": true
         },
@@ -44,7 +49,7 @@
             "relationshipType": "one-to-many",
             "otherEntityName": "ports",
             "otherEntityRelationshipName": "app",
-            "relationshipName": "port"
+            "relationshipName": "ports"
         },
         {
             "relationshipType": "many-to-one",

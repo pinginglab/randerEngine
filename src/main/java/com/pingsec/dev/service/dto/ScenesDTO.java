@@ -2,6 +2,7 @@ package com.pingsec.dev.service.dto;
 import java.time.Instant;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the {@link com.pingsec.dev.domain.Scenes} entity.
@@ -23,6 +24,9 @@ public class ScenesDTO implements Serializable {
     private Integer extendTime;
 
     private String app;
+
+    @Lob
+    private String other;
 
 
     public Long getId() {
@@ -89,6 +93,14 @@ public class ScenesDTO implements Serializable {
         this.app = app;
     }
 
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -121,6 +133,7 @@ public class ScenesDTO implements Serializable {
             ", waitingTime='" + getWaitingTime() + "'" +
             ", extendTime=" + getExtendTime() +
             ", app='" + getApp() + "'" +
+            ", other='" + getOther() + "'" +
             "}";
     }
 }

@@ -1,4 +1,5 @@
 package com.pingsec.dev.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,6 +33,10 @@ public class Images implements Serializable {
 
     @Column(name = "creat_time")
     private Instant creatTime;
+
+    @OneToOne(mappedBy = "images")
+    @JsonIgnore
+    private App app;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -92,6 +97,19 @@ public class Images implements Serializable {
 
     public void setCreatTime(Instant creatTime) {
         this.creatTime = creatTime;
+    }
+
+    public App getApp() {
+        return app;
+    }
+
+    public Images app(App app) {
+        this.app = app;
+        return this;
+    }
+
+    public void setApp(App app) {
+        this.app = app;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

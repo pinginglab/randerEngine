@@ -13,7 +13,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Service Implementation for managing {@link Networks}.
@@ -61,6 +65,21 @@ public class NetworksServiceImpl implements NetworksService {
             .map(networksMapper::toDto);
     }
 
+
+
+    /**
+    *  Get all the networks where App is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true) 
+    public List<NetworksDTO> findAllWhereAppIsNull() {
+        log.debug("Request to get all networks where App is null");
+        return StreamSupport
+            .stream(networksRepository.findAll().spliterator(), false)
+            .filter(networks -> networks.getApp() == null)
+            .map(networksMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     /**
      * Get one networks by id.

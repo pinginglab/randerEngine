@@ -14,7 +14,7 @@
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "app",
-            "otherEntityRelationshipName": "port",
+            "otherEntityRelationshipName": "ports",
             "relationshipName": "app",
             "otherEntityField": "id"
         }

@@ -11,15 +11,15 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {NetworksMapper.class, ImagesMapper.class, ScenesMapper.class})
 public interface AppMapper extends EntityMapper<AppDTO, App> {
 
-    @Mapping(source = "network.id", target = "networkId")
-    @Mapping(source = "image.id", target = "imageId")
+    @Mapping(source = "networks.id", target = "networksId")
+    @Mapping(source = "images.id", target = "imagesId")
     @Mapping(source = "scenes.id", target = "scenesId")
     AppDTO toDto(App app);
 
-    @Mapping(source = "networkId", target = "network")
-    @Mapping(source = "imageId", target = "image")
+    @Mapping(source = "networksId", target = "networks")
+    @Mapping(source = "imagesId", target = "images")
     @Mapping(target = "ports", ignore = true)
-    @Mapping(target = "removePort", ignore = true)
+    @Mapping(target = "removePorts", ignore = true)
     @Mapping(source = "scenesId", target = "scenes")
     App toEntity(AppDTO appDTO);
 

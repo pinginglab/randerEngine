@@ -20,6 +20,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
@@ -59,6 +60,9 @@ public class ScenesResourceIT {
 
     private static final String DEFAULT_APP = "AAAAAAAAAA";
     private static final String UPDATED_APP = "BBBBBBBBBB";
+
+    private static final String DEFAULT_OTHER = "AAAAAAAAAA";
+    private static final String UPDATED_OTHER = "BBBBBBBBBB";
 
     @Autowired
     private ScenesRepository scenesRepository;
@@ -114,7 +118,8 @@ public class ScenesResourceIT {
             .createTime(DEFAULT_CREATE_TIME)
             .waitingTime(DEFAULT_WAITING_TIME)
             .extendTime(DEFAULT_EXTEND_TIME)
-            .app(DEFAULT_APP);
+            .app(DEFAULT_APP)
+            .other(DEFAULT_OTHER);
         return scenes;
     }
     /**
@@ -131,7 +136,8 @@ public class ScenesResourceIT {
             .createTime(UPDATED_CREATE_TIME)
             .waitingTime(UPDATED_WAITING_TIME)
             .extendTime(UPDATED_EXTEND_TIME)
-            .app(UPDATED_APP);
+            .app(UPDATED_APP)
+            .other(UPDATED_OTHER);
         return scenes;
     }
 
@@ -163,6 +169,7 @@ public class ScenesResourceIT {
         assertThat(testScenes.getWaitingTime()).isEqualTo(DEFAULT_WAITING_TIME);
         assertThat(testScenes.getExtendTime()).isEqualTo(DEFAULT_EXTEND_TIME);
         assertThat(testScenes.getApp()).isEqualTo(DEFAULT_APP);
+        assertThat(testScenes.getOther()).isEqualTo(DEFAULT_OTHER);
     }
 
     @Test
@@ -203,7 +210,8 @@ public class ScenesResourceIT {
             .andExpect(jsonPath("$.[*].createTime").value(hasItem(DEFAULT_CREATE_TIME.toString())))
             .andExpect(jsonPath("$.[*].waitingTime").value(hasItem(DEFAULT_WAITING_TIME.toString())))
             .andExpect(jsonPath("$.[*].extendTime").value(hasItem(DEFAULT_EXTEND_TIME)))
-            .andExpect(jsonPath("$.[*].app").value(hasItem(DEFAULT_APP)));
+            .andExpect(jsonPath("$.[*].app").value(hasItem(DEFAULT_APP)))
+            .andExpect(jsonPath("$.[*].other").value(hasItem(DEFAULT_OTHER.toString())));
     }
     
     @Test
@@ -223,7 +231,8 @@ public class ScenesResourceIT {
             .andExpect(jsonPath("$.createTime").value(DEFAULT_CREATE_TIME.toString()))
             .andExpect(jsonPath("$.waitingTime").value(DEFAULT_WAITING_TIME.toString()))
             .andExpect(jsonPath("$.extendTime").value(DEFAULT_EXTEND_TIME))
-            .andExpect(jsonPath("$.app").value(DEFAULT_APP));
+            .andExpect(jsonPath("$.app").value(DEFAULT_APP))
+            .andExpect(jsonPath("$.other").value(DEFAULT_OTHER.toString()));
     }
 
     @Test
@@ -253,7 +262,8 @@ public class ScenesResourceIT {
             .createTime(UPDATED_CREATE_TIME)
             .waitingTime(UPDATED_WAITING_TIME)
             .extendTime(UPDATED_EXTEND_TIME)
-            .app(UPDATED_APP);
+            .app(UPDATED_APP)
+            .other(UPDATED_OTHER);
         ScenesDTO scenesDTO = scenesMapper.toDto(updatedScenes);
 
         restScenesMockMvc.perform(put("/api/scenes")
@@ -272,6 +282,7 @@ public class ScenesResourceIT {
         assertThat(testScenes.getWaitingTime()).isEqualTo(UPDATED_WAITING_TIME);
         assertThat(testScenes.getExtendTime()).isEqualTo(UPDATED_EXTEND_TIME);
         assertThat(testScenes.getApp()).isEqualTo(UPDATED_APP);
+        assertThat(testScenes.getOther()).isEqualTo(UPDATED_OTHER);
     }
 
     @Test

@@ -21,10 +21,13 @@ public class AppDTO implements Serializable {
     @Lob
     private String enviroment;
 
+    @Lob
+    private String other;
 
-    private Long networkId;
 
-    private Long imageId;
+    private Long networksId;
+
+    private Long imagesId;
 
     private Long scenesId;
 
@@ -76,20 +79,28 @@ public class AppDTO implements Serializable {
         this.enviroment = enviroment;
     }
 
-    public Long getNetworkId() {
-        return networkId;
+    public String getOther() {
+        return other;
     }
 
-    public void setNetworkId(Long networksId) {
-        this.networkId = networksId;
+    public void setOther(String other) {
+        this.other = other;
     }
 
-    public Long getImageId() {
-        return imageId;
+    public Long getNetworksId() {
+        return networksId;
     }
 
-    public void setImageId(Long imagesId) {
-        this.imageId = imagesId;
+    public void setNetworksId(Long networksId) {
+        this.networksId = networksId;
+    }
+
+    public Long getImagesId() {
+        return imagesId;
+    }
+
+    public void setImagesId(Long imagesId) {
+        this.imagesId = imagesId;
     }
 
     public Long getScenesId() {
@@ -130,8 +141,9 @@ public class AppDTO implements Serializable {
             ", port='" + getPort() + "'" +
             ", volume='" + getVolume() + "'" +
             ", enviroment='" + getEnviroment() + "'" +
-            ", networkId=" + getNetworkId() +
-            ", imageId=" + getImageId() +
+            ", other='" + getOther() + "'" +
+            ", networksId=" + getNetworksId() +
+            ", imagesId=" + getImagesId() +
             ", scenesId=" + getScenesId() +
             "}";
     }

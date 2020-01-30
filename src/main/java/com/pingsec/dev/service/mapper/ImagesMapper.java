@@ -12,6 +12,8 @@ import org.mapstruct.*;
 public interface ImagesMapper extends EntityMapper<ImagesDTO, Images> {
 
 
+    @Mapping(target = "app", ignore = true)
+    Images toEntity(ImagesDTO imagesDTO);
 
     default Images fromId(Long id) {
         if (id == null) {

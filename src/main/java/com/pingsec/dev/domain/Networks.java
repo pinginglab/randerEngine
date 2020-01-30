@@ -1,4 +1,5 @@
 package com.pingsec.dev.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -25,6 +26,10 @@ public class Networks implements Serializable {
 
     @Column(name = "other")
     private String other;
+
+    @OneToOne(mappedBy = "networks")
+    @JsonIgnore
+    private App app;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -59,6 +64,19 @@ public class Networks implements Serializable {
 
     public void setOther(String other) {
         this.other = other;
+    }
+
+    public App getApp() {
+        return app;
+    }
+
+    public Networks app(App app) {
+        this.app = app;
+        return this;
+    }
+
+    public void setApp(App app) {
+        this.app = app;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

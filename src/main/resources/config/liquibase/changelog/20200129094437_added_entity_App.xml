@@ -31,11 +31,14 @@
             <column name="enviroment" type="${clobType}">
                 <constraints nullable="true" />
             </column>
-            <column name="network_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_app_network_id" />
+            <column name="other" type="${clobType}">
+                <constraints nullable="true" />
             </column>
-            <column name="image_id" type="bigint">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_app_image_id" />
+            <column name="networks_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_app_networks_id" />
+            </column>
+            <column name="images_id" type="bigint">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_app_images_id" />
             </column>
             <column name="scenes_id" type="bigint">
                 <constraints nullable="true" />
@@ -68,6 +71,7 @@
             <column name="port" type="string"/>
             <column name="volume" type="string"/>
             <column name="enviroment" type="clob"/>
+            <column name="other" type="clob"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

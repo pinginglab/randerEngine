@@ -5,6 +5,7 @@ import com.pingsec.dev.service.dto.NetworksDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,6 +28,12 @@ public interface NetworksService {
      * @return the list of entities.
      */
     Page<NetworksDTO> findAll(Pageable pageable);
+    /**
+     * Get all the NetworksDTO where App is {@code null}.
+     *
+     * @return the list of entities.
+     */
+    List<NetworksDTO> findAllWhereAppIsNull();
 
 
     /**

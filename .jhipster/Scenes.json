@@ -28,6 +28,11 @@
         {
             "fieldName": "app",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "other",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
         }
     ],
     "relationships": [

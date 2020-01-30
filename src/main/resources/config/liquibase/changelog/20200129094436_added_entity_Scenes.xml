@@ -37,6 +37,9 @@
             <column name="app" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="other" type="${clobType}">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="scenes" columnName="create_time" columnDataType="datetime"/>
@@ -69,6 +72,7 @@
             <column name="waiting_time" type="datetime"/>
             <column name="extend_time" type="numeric"/>
             <column name="app" type="string"/>
+            <column name="other" type="clob"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

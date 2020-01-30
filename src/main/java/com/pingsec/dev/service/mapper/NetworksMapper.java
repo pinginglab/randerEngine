@@ -12,6 +12,8 @@ import org.mapstruct.*;
 public interface NetworksMapper extends EntityMapper<NetworksDTO, Networks> {
 
 
+    @Mapping(target = "app", ignore = true)
+    Networks toEntity(NetworksDTO networksDTO);
 
     default Networks fromId(Long id) {
         if (id == null) {

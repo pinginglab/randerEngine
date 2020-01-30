@@ -10,7 +10,15 @@
             "fieldType": "String"
         }
     ],
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "app",
+            "otherEntityRelationshipName": "networks",
+            "relationshipName": "app",
+            "ownerSide": false
+        }
+    ],
     "changelogDate": "20200129094440",
     "entityTableName": "networks",
     "dto": "mapstruct",
