@@ -1,42 +1,30 @@
 {
-    "name": "Images",
+    "name": "Tasks",
     "fields": [
-        {
-            "fieldName": "creater",
-            "fieldType": "String"
-        },
         {
             "fieldName": "name",
             "fieldType": "String"
         },
         {
-            "fieldName": "description",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "creatTime",
+            "fieldName": "createTime",
             "fieldType": "Instant"
         },
         {
-            "fieldName": "hashCode",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "port",
-            "fieldType": "String"
+            "fieldName": "biuldTime",
+            "fieldType": "Instant"
         }
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "otherEntityName": "app",
-            "otherEntityRelationshipName": "images",
+            "otherEntityRelationshipName": "tasks",
             "relationshipName": "app",
-            "ownerSide": false
+            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20200129094439",
-    "entityTableName": "images",
+    "changelogDate": "20200131062715",
+    "entityTableName": "tasks",
     "dto": "mapstruct",
     "pagination": "pagination",
     "service": "serviceImpl",

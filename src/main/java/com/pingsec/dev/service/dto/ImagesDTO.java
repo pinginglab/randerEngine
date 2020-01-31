@@ -20,6 +20,8 @@ public class ImagesDTO implements Serializable {
 
     private String hashCode;
 
+    private String port;
+
 
     public Long getId() {
         return id;
@@ -69,6 +71,14 @@ public class ImagesDTO implements Serializable {
         this.hashCode = hashCode;
     }
 
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -82,12 +92,12 @@ public class ImagesDTO implements Serializable {
         if (imagesDTO.getId() == null || getId() == null) {
             return false;
         }
-    return Objects.equals(getId(), imagesDTO.getId());
+        return Objects.equals(getId(), imagesDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getCreater()+getName());
+        return Objects.hashCode(getId());
     }
 
     @Override
@@ -99,6 +109,7 @@ public class ImagesDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", creatTime='" + getCreatTime() + "'" +
             ", hashCode='" + getHashCode() + "'" +
+            ", port='" + getPort() + "'" +
             "}";
     }
 }

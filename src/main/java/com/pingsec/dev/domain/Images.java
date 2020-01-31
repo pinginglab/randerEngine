@@ -37,6 +37,9 @@ public class Images implements Serializable {
     @Column(name = "hash_code")
     private String hashCode;
 
+    @Column(name = "port")
+    private String port;
+
     @OneToOne(mappedBy = "images")
     @JsonIgnore
     private App app;
@@ -115,6 +118,19 @@ public class Images implements Serializable {
         this.hashCode = hashCode;
     }
 
+    public String getPort() {
+        return port;
+    }
+
+    public Images port(String port) {
+        this.port = port;
+        return this;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
     public App getApp() {
         return app;
     }
@@ -154,6 +170,7 @@ public class Images implements Serializable {
             ", description='" + getDescription() + "'" +
             ", creatTime='" + getCreatTime() + "'" +
             ", hashCode='" + getHashCode() + "'" +
+            ", port='" + getPort() + "'" +
             "}";
     }
 }

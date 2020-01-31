@@ -6,7 +6,9 @@ import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientBuilder;
 import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.jaxrs.JerseyDockerCmdExecFactory;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class DockerConfiguration {
 
     // TODO: 由于目前是本地部署后续上线之后需要进行个性化部署配置修改配置

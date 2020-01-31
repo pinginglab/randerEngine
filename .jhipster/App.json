@@ -52,6 +52,12 @@
             "relationshipName": "ports"
         },
         {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "tasks",
+            "otherEntityRelationshipName": "app",
+            "relationshipName": "tasks"
+        },
+        {
             "relationshipType": "many-to-one",
             "otherEntityName": "scenes",
             "otherEntityRelationshipName": "app",
