@@ -1,11 +1,8 @@
 package com.pingsec.dev.web.rest;
 
 import com.pingsec.dev.service.ScenesService;
-import com.pingsec.dev.service.ScenesSolveService;
-import com.pingsec.dev.service.dto.request.ScenesSolveDTO;
 import com.pingsec.dev.web.rest.errors.BadRequestAlertException;
 import com.pingsec.dev.service.dto.ScenesDTO;
-
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -16,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,12 +39,9 @@ public class ScenesResource {
     private String applicationName;
 
     private final ScenesService scenesService;
-    private final ScenesSolveService scenesSolveService;
 
-    public ScenesResource(ScenesService scenesService,
-                          ScenesSolveService scenesSolveService) {
+    public ScenesResource(ScenesService scenesService) {
         this.scenesService = scenesService;
-        this.scenesSolveService = scenesSolveService;
     }
 
     /**
@@ -57,14 +52,12 @@ public class ScenesResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/scenes")
-    public ResponseEntity<ScenesDTO> createScenes(@RequestBody ScenesSolveDTO scenesDTO) throws URISyntaxException {
+    public ResponseEntity<ScenesDTO> createScenes(@RequestBody ScenesDTO scenesDTO) throws URISyntaxException {
         log.debug("REST request to save Scenes : {}", scenesDTO);
         if (scenesDTO.getId() != null) {
             throw new BadRequestAlertException("A new scenes cannot already have an ID", ENTITY_NAME, "idexists");
         }
-
-
-        ScenesDTO result = scenesService.save(scenesSolveService.scenesSolveToscenes(scenesDTO));
+        ScenesDTO result = scenesService.save(scenesDTO);
         return ResponseEntity.created(new URI("/api/scenes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);

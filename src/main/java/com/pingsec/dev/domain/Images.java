@@ -34,6 +34,9 @@ public class Images implements Serializable {
     @Column(name = "creat_time")
     private Instant creatTime;
 
+    @Column(name = "hash_code")
+    private String hashCode;
+
     @OneToOne(mappedBy = "images")
     @JsonIgnore
     private App app;
@@ -99,6 +102,19 @@ public class Images implements Serializable {
         this.creatTime = creatTime;
     }
 
+    public String getHashCode() {
+        return hashCode;
+    }
+
+    public Images hashCode(String hashCode) {
+        this.hashCode = hashCode;
+        return this;
+    }
+
+    public void setHashCode(String hashCode) {
+        this.hashCode = hashCode;
+    }
+
     public App getApp() {
         return app;
     }
@@ -137,6 +153,7 @@ public class Images implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", creatTime='" + getCreatTime() + "'" +
+            ", hashCode='" + getHashCode() + "'" +
             "}";
     }
 }

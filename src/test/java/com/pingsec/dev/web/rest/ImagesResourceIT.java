@@ -51,6 +51,9 @@ public class ImagesResourceIT {
     private static final Instant DEFAULT_CREAT_TIME = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREAT_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
+    private static final String DEFAULT_HASH_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_HASH_CODE = "BBBBBBBBBB";
+
     @Autowired
     private ImagesRepository imagesRepository;
 
@@ -102,7 +105,8 @@ public class ImagesResourceIT {
             .creater(DEFAULT_CREATER)
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
-            .creatTime(DEFAULT_CREAT_TIME);
+            .creatTime(DEFAULT_CREAT_TIME)
+            .hashCode(DEFAULT_HASH_CODE);
         return images;
     }
     /**
@@ -116,7 +120,8 @@ public class ImagesResourceIT {
             .creater(UPDATED_CREATER)
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
-            .creatTime(UPDATED_CREAT_TIME);
+            .creatTime(UPDATED_CREAT_TIME)
+            .hashCode(UPDATED_HASH_CODE);
         return images;
     }
 
@@ -145,6 +150,7 @@ public class ImagesResourceIT {
         assertThat(testImages.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testImages.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testImages.getCreatTime()).isEqualTo(DEFAULT_CREAT_TIME);
+        assertThat(testImages.getHashCode()).isEqualTo(DEFAULT_HASH_CODE);
     }
 
     @Test
@@ -182,7 +188,8 @@ public class ImagesResourceIT {
             .andExpect(jsonPath("$.[*].creater").value(hasItem(DEFAULT_CREATER)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
-            .andExpect(jsonPath("$.[*].creatTime").value(hasItem(DEFAULT_CREAT_TIME.toString())));
+            .andExpect(jsonPath("$.[*].creatTime").value(hasItem(DEFAULT_CREAT_TIME.toString())))
+            .andExpect(jsonPath("$.[*].hashCode").value(hasItem(DEFAULT_HASH_CODE)));
     }
     
     @Test
@@ -199,7 +206,8 @@ public class ImagesResourceIT {
             .andExpect(jsonPath("$.creater").value(DEFAULT_CREATER))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
-            .andExpect(jsonPath("$.creatTime").value(DEFAULT_CREAT_TIME.toString()));
+            .andExpect(jsonPath("$.creatTime").value(DEFAULT_CREAT_TIME.toString()))
+            .andExpect(jsonPath("$.hashCode").value(DEFAULT_HASH_CODE));
     }
 
     @Test
@@ -226,7 +234,8 @@ public class ImagesResourceIT {
             .creater(UPDATED_CREATER)
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
-            .creatTime(UPDATED_CREAT_TIME);
+            .creatTime(UPDATED_CREAT_TIME)
+            .hashCode(UPDATED_HASH_CODE);
         ImagesDTO imagesDTO = imagesMapper.toDto(updatedImages);
 
         restImagesMockMvc.perform(put("/api/images")
@@ -242,6 +251,7 @@ public class ImagesResourceIT {
         assertThat(testImages.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testImages.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testImages.getCreatTime()).isEqualTo(UPDATED_CREAT_TIME);
+        assertThat(testImages.getHashCode()).isEqualTo(UPDATED_HASH_CODE);
     }
 
     @Test

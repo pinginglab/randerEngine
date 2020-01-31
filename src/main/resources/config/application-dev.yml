@@ -97,8 +97,6 @@ spring:
       discovery:
         enabled: true
 
-  docker:
-
 server:
   port: 8081
 

@@ -8,17 +8,20 @@ import com.github.dockerjava.core.DockerClientConfig;
 import com.github.dockerjava.jaxrs.JerseyDockerCmdExecFactory;
 
 public class DockerConfiguration {
+
+    // TODO: 由于目前是本地部署后续上线之后需要进行个性化部署配置修改配置
     DockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
 //        .withDockerHost("tcp://localhost:2376")
         .withDockerHost("unix:///var/run/docker.sock")
 //        .withDockerHost("tcp://docker.somewhere.tld:2376")
         .withDockerTlsVerify(true)
-        .withDockerCertPath("/home/user/.docker")
+        .withDockerCertPath("/home/yerikyu/.docker")
 //        .withRegistryUsername(registryUser)
 //        .withRegistryPassword(registryPass)
 //        .withRegistryEmail(registryMail)
 //        .withRegistryUrl(registryUrl)
         .build();
+
 
     // using jaxrs/jersey implementation here (netty impl is also available)
     DockerCmdExecFactory dockerCmdExecFactory = new JerseyDockerCmdExecFactory()
@@ -27,7 +30,14 @@ public class DockerConfiguration {
         .withMaxTotalConnections(100)
         .withMaxPerRouteConnections(10);
 
-    DockerClient dockerClient = DockerClientBuilder.getInstance(config)
-        .withDockerCmdExecFactory(dockerCmdExecFactory)
-        .build();
+
+
+    public DockerClient getDockerClient(){
+        DockerClient dockerClient = DockerClientBuilder.getInstance(config)
+            .withDockerCmdExecFactory(dockerCmdExecFactory)
+            .build();
+        return dockerClient;
+    }
+
+
 }

@@ -18,6 +18,8 @@ public class ImagesDTO implements Serializable {
 
     private Instant creatTime;
 
+    private String hashCode;
+
 
     public Long getId() {
         return id;
@@ -59,6 +61,14 @@ public class ImagesDTO implements Serializable {
         this.creatTime = creatTime;
     }
 
+    public String getHashCode() {
+        return hashCode;
+    }
+
+    public void setHashCode(String hashCode) {
+        this.hashCode = hashCode;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -72,12 +82,12 @@ public class ImagesDTO implements Serializable {
         if (imagesDTO.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), imagesDTO.getId());
+    return Objects.equals(getId(), imagesDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(getCreater()+getName());
     }
 
     @Override
@@ -88,6 +98,7 @@ public class ImagesDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", creatTime='" + getCreatTime() + "'" +
+            ", hashCode='" + getHashCode() + "'" +
             "}";
     }
 }
