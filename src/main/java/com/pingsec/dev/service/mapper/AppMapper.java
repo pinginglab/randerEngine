@@ -20,6 +20,7 @@ public interface AppMapper extends EntityMapper<AppDTO, App> {
     @Mapping(source = "imagesId", target = "images")
     @Mapping(target = "ports", ignore = true)
     @Mapping(target = "removePorts", ignore = true)
+    @Mapping(target = "tasks", ignore = true)
     @Mapping(source = "scenesId", target = "scenes")
     App toEntity(AppDTO appDTO);
 

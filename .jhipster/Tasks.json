@@ -6,21 +6,27 @@
             "fieldType": "String"
         },
         {
+            "fieldName": "content",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
             "fieldName": "createTime",
             "fieldType": "Instant"
         },
         {
-            "fieldName": "biuldTime",
+            "fieldName": "buildTime",
             "fieldType": "Instant"
         }
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
+            "relationshipType": "one-to-one",
             "otherEntityName": "app",
             "otherEntityRelationshipName": "tasks",
             "relationshipName": "app",
-            "otherEntityField": "id"
+            "otherEntityField": "id",
+            "ownerSide": true
         }
     ],
     "changelogDate": "20200131062715",

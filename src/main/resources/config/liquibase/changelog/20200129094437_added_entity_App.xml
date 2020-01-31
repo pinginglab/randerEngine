@@ -28,7 +28,7 @@
             <column name="volume" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="enviroment" type="${clobType}">
+            <column name="environment" type="${clobType}">
                 <constraints nullable="true" />
             </column>
             <column name="other" type="${clobType}">
@@ -70,7 +70,7 @@
             <column name="network" type="string"/>
             <column name="port" type="string"/>
             <column name="volume" type="string"/>
-            <column name="enviroment" type="clob"/>
+            <column name="environment" type="clob"/>
             <column name="other" type="clob"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>

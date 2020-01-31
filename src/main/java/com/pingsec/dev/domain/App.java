@@ -1,4 +1,5 @@
 package com.pingsec.dev.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -36,8 +37,8 @@ public class App implements Serializable {
     private String volume;
 
     @Lob
-    @Column(name = "enviroment")
-    private String enviroment;
+    @Column(name = "environment")
+    private String environment;
 
     @Lob
     @Column(name = "other")
@@ -54,6 +55,10 @@ public class App implements Serializable {
     @OneToMany(mappedBy = "app")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Ports> ports = new HashSet<>();
+
+    @OneToOne(mappedBy = "app")
+    @JsonIgnore
+    private Tasks tasks;
 
     @ManyToOne
     @JsonIgnoreProperties("apps")
@@ -120,17 +125,17 @@ public class App implements Serializable {
         this.volume = volume;
     }
 
-    public String getEnviroment() {
-        return enviroment;
+    public String getEnvironment() {
+        return environment;
     }
 
-    public App enviroment(String enviroment) {
-        this.enviroment = enviroment;
+    public App environment(String environment) {
+        this.environment = environment;
         return this;
     }
 
-    public void setEnviroment(String enviroment) {
-        this.enviroment = enviroment;
+    public void setEnvironment(String environment) {
+        this.environment = environment;
     }
 
     public String getOther() {
@@ -197,6 +202,19 @@ public class App implements Serializable {
         this.ports = ports;
     }
 
+    public Tasks getTasks() {
+        return tasks;
+    }
+
+    public App tasks(Tasks tasks) {
+        this.tasks = tasks;
+        return this;
+    }
+
+    public void setTasks(Tasks tasks) {
+        this.tasks = tasks;
+    }
+
     public Scenes getScenes() {
         return scenes;
     }
@@ -235,7 +253,7 @@ public class App implements Serializable {
             ", network='" + getNetwork() + "'" +
             ", port='" + getPort() + "'" +
             ", volume='" + getVolume() + "'" +
-            ", enviroment='" + getEnviroment() + "'" +
+            ", environment='" + getEnvironment() + "'" +
             ", other='" + getOther() + "'" +
             "}";
     }

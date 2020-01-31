@@ -2,6 +2,7 @@ package com.pingsec.dev.service.dto;
 import java.time.Instant;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Lob;
 
 /**
  * A DTO for the {@link com.pingsec.dev.domain.Tasks} entity.
@@ -12,9 +13,12 @@ public class TasksDTO implements Serializable {
 
     private String name;
 
+    @Lob
+    private String content;
+
     private Instant createTime;
 
-    private Instant biuldTime;
+    private Instant buildTime;
 
 
     private Long appId;
@@ -35,6 +39,14 @@ public class TasksDTO implements Serializable {
         this.name = name;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public Instant getCreateTime() {
         return createTime;
     }
@@ -43,12 +55,12 @@ public class TasksDTO implements Serializable {
         this.createTime = createTime;
     }
 
-    public Instant getBiuldTime() {
-        return biuldTime;
+    public Instant getBuildTime() {
+        return buildTime;
     }
 
-    public void setBiuldTime(Instant biuldTime) {
-        this.biuldTime = biuldTime;
+    public void setBuildTime(Instant buildTime) {
+        this.buildTime = buildTime;
     }
 
     public Long getAppId() {
@@ -85,8 +97,9 @@ public class TasksDTO implements Serializable {
         return "TasksDTO{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
+            ", content='" + getContent() + "'" +
             ", createTime='" + getCreateTime() + "'" +
-            ", biuldTime='" + getBiuldTime() + "'" +
+            ", buildTime='" + getBuildTime() + "'" +
             ", appId=" + getAppId() +
             "}";
     }

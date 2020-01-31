@@ -13,7 +13,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Service Implementation for managing {@link App}.
@@ -61,6 +65,21 @@ public class AppServiceImpl implements AppService {
             .map(appMapper::toDto);
     }
 
+
+
+    /**
+    *  Get all the apps where Tasks is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true) 
+    public List<AppDTO> findAllWhereTasksIsNull() {
+        log.debug("Request to get all apps where Tasks is null");
+        return StreamSupport
+            .stream(appRepository.findAll().spliterator(), false)
+            .filter(app -> app.getTasks() == null)
+            .map(appMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     /**
      * Get one app by id.

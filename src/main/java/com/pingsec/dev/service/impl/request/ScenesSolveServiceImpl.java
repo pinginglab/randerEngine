@@ -29,6 +29,7 @@ public class ScenesSolveServiceImpl implements ScenesSolveService {
     private final PortsService portsService;
     private final NetworksService networksService;
     private final AppService appService;
+    private final TasksService tasksService;
 
     private ImagesRepository imagesRepository;
 
@@ -39,10 +40,12 @@ public class ScenesSolveServiceImpl implements ScenesSolveService {
     public ScenesSolveServiceImpl(PortsService portsService,
                                   NetworksService networksService,
                                   AppService appService,
+                                  TasksService tasksService,
                                   ImagesRepository imagesRepository) {
         this.portsService = portsService;
         this.networksService = networksService;
         this.appService = appService;
+        this.tasksService = tasksService;
         this.imagesRepository = imagesRepository;
     }
 
@@ -52,6 +55,7 @@ public class ScenesSolveServiceImpl implements ScenesSolveService {
         NetworksDTO networksDTO = new NetworksDTO();
         PortsDTO portsDTO = new PortsDTO();
         AppDTO appDTO = new AppDTO();
+        TasksDTO tasksDTO = new TasksDTO();
         Instant instant = Instant.now();
         HashMap<String, String> bodyMap = gson.fromJson(scenesSolveDTO.getBody(), typeOfMapString);
 
@@ -73,6 +77,8 @@ public class ScenesSolveServiceImpl implements ScenesSolveService {
             scenesDTO.setCreateTime(instant);
             appDTO.setImage(imagesOptional.get().getName());
             appDTO.setScenesId(scenesDTO.getId());
+            appDTO.setPort(bodyMap.get("hostPort"));
+            appDTO.setEnvironment(bodyMap.get("environment"));
             networksDTO.setType(scenesSolveDTO.getNetwork());
             networksService.save(networksDTO);
             appDTO.setNetworksId(networksDTO.getId());
@@ -81,11 +87,13 @@ public class ScenesSolveServiceImpl implements ScenesSolveService {
             portsDTO.setAppId(appDTO.getId());
             portsDTO.setContainerPort(imagesOptional.get().getPort());
             portsService.save(portsDTO);
+            tasksDTO.setCreateTime(instant);
+            // 记录是谁的提交的单
+            tasksDTO.setName(scenesSolveDTO.getCreater());
+            tasksDTO.setAppId(appDTO.getId());
+            tasksService.save(tasksDTO);
             appService.save(appDTO);
-
-
             return scenesDTO;
-
         }
     }
 }

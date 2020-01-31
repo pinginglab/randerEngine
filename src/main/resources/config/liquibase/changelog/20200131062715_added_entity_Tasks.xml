@@ -19,19 +19,22 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="content" type="${clobType}">
+                <constraints nullable="true" />
+            </column>
             <column name="create_time" type="datetime">
                 <constraints nullable="true" />
             </column>
-            <column name="biuld_time" type="datetime">
+            <column name="build_time" type="datetime">
                 <constraints nullable="true" />
             </column>
             <column name="app_id" type="bigint">
-                <constraints nullable="true" />
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_tasks_app_id" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="tasks" columnName="create_time" columnDataType="datetime"/>
-        <dropDefaultValue tableName="tasks" columnName="biuld_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="tasks" columnName="build_time" columnDataType="datetime"/>
     </changeSet>
 
     <changeSet id="20200131062715-1-relations" author="jhipster">
@@ -54,8 +57,9 @@
                   tableName="tasks">
             <column name="id" type="numeric"/>
             <column name="name" type="string"/>
+            <column name="content" type="clob"/>
             <column name="create_time" type="datetime"/>
-            <column name="biuld_time" type="datetime"/>
+            <column name="build_time" type="datetime"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

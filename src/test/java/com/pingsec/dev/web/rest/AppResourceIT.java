@@ -50,8 +50,8 @@ public class AppResourceIT {
     private static final String DEFAULT_VOLUME = "AAAAAAAAAA";
     private static final String UPDATED_VOLUME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_ENVIROMENT = "AAAAAAAAAA";
-    private static final String UPDATED_ENVIROMENT = "BBBBBBBBBB";
+    private static final String DEFAULT_ENVIRONMENT = "AAAAAAAAAA";
+    private static final String UPDATED_ENVIRONMENT = "BBBBBBBBBB";
 
     private static final String DEFAULT_OTHER = "AAAAAAAAAA";
     private static final String UPDATED_OTHER = "BBBBBBBBBB";
@@ -108,7 +108,7 @@ public class AppResourceIT {
             .network(DEFAULT_NETWORK)
             .port(DEFAULT_PORT)
             .volume(DEFAULT_VOLUME)
-            .enviroment(DEFAULT_ENVIROMENT)
+            .environment(DEFAULT_ENVIRONMENT)
             .other(DEFAULT_OTHER);
         return app;
     }
@@ -124,7 +124,7 @@ public class AppResourceIT {
             .network(UPDATED_NETWORK)
             .port(UPDATED_PORT)
             .volume(UPDATED_VOLUME)
-            .enviroment(UPDATED_ENVIROMENT)
+            .environment(UPDATED_ENVIRONMENT)
             .other(UPDATED_OTHER);
         return app;
     }
@@ -154,7 +154,7 @@ public class AppResourceIT {
         assertThat(testApp.getNetwork()).isEqualTo(DEFAULT_NETWORK);
         assertThat(testApp.getPort()).isEqualTo(DEFAULT_PORT);
         assertThat(testApp.getVolume()).isEqualTo(DEFAULT_VOLUME);
-        assertThat(testApp.getEnviroment()).isEqualTo(DEFAULT_ENVIROMENT);
+        assertThat(testApp.getEnvironment()).isEqualTo(DEFAULT_ENVIRONMENT);
         assertThat(testApp.getOther()).isEqualTo(DEFAULT_OTHER);
     }
 
@@ -194,7 +194,7 @@ public class AppResourceIT {
             .andExpect(jsonPath("$.[*].network").value(hasItem(DEFAULT_NETWORK)))
             .andExpect(jsonPath("$.[*].port").value(hasItem(DEFAULT_PORT)))
             .andExpect(jsonPath("$.[*].volume").value(hasItem(DEFAULT_VOLUME)))
-            .andExpect(jsonPath("$.[*].enviroment").value(hasItem(DEFAULT_ENVIROMENT.toString())))
+            .andExpect(jsonPath("$.[*].environment").value(hasItem(DEFAULT_ENVIRONMENT.toString())))
             .andExpect(jsonPath("$.[*].other").value(hasItem(DEFAULT_OTHER.toString())));
     }
     
@@ -213,7 +213,7 @@ public class AppResourceIT {
             .andExpect(jsonPath("$.network").value(DEFAULT_NETWORK))
             .andExpect(jsonPath("$.port").value(DEFAULT_PORT))
             .andExpect(jsonPath("$.volume").value(DEFAULT_VOLUME))
-            .andExpect(jsonPath("$.enviroment").value(DEFAULT_ENVIROMENT.toString()))
+            .andExpect(jsonPath("$.environment").value(DEFAULT_ENVIRONMENT.toString()))
             .andExpect(jsonPath("$.other").value(DEFAULT_OTHER.toString()));
     }
 
@@ -242,7 +242,7 @@ public class AppResourceIT {
             .network(UPDATED_NETWORK)
             .port(UPDATED_PORT)
             .volume(UPDATED_VOLUME)
-            .enviroment(UPDATED_ENVIROMENT)
+            .environment(UPDATED_ENVIRONMENT)
             .other(UPDATED_OTHER);
         AppDTO appDTO = appMapper.toDto(updatedApp);
 
@@ -259,7 +259,7 @@ public class AppResourceIT {
         assertThat(testApp.getNetwork()).isEqualTo(UPDATED_NETWORK);
         assertThat(testApp.getPort()).isEqualTo(UPDATED_PORT);
         assertThat(testApp.getVolume()).isEqualTo(UPDATED_VOLUME);
-        assertThat(testApp.getEnviroment()).isEqualTo(UPDATED_ENVIROMENT);
+        assertThat(testApp.getEnvironment()).isEqualTo(UPDATED_ENVIRONMENT);
         assertThat(testApp.getOther()).isEqualTo(UPDATED_OTHER);
     }
 

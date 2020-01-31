@@ -20,6 +20,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
@@ -42,11 +43,14 @@ public class TasksResourceIT {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_CONTENT = "AAAAAAAAAA";
+    private static final String UPDATED_CONTENT = "BBBBBBBBBB";
+
     private static final Instant DEFAULT_CREATE_TIME = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Instant DEFAULT_BIULD_TIME = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_BIULD_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+    private static final Instant DEFAULT_BUILD_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_BUILD_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private TasksRepository tasksRepository;
@@ -97,8 +101,9 @@ public class TasksResourceIT {
     public static Tasks createEntity(EntityManager em) {
         Tasks tasks = new Tasks()
             .name(DEFAULT_NAME)
+            .content(DEFAULT_CONTENT)
             .createTime(DEFAULT_CREATE_TIME)
-            .biuldTime(DEFAULT_BIULD_TIME);
+            .buildTime(DEFAULT_BUILD_TIME);
         return tasks;
     }
     /**
@@ -110,8 +115,9 @@ public class TasksResourceIT {
     public static Tasks createUpdatedEntity(EntityManager em) {
         Tasks tasks = new Tasks()
             .name(UPDATED_NAME)
+            .content(UPDATED_CONTENT)
             .createTime(UPDATED_CREATE_TIME)
-            .biuldTime(UPDATED_BIULD_TIME);
+            .buildTime(UPDATED_BUILD_TIME);
         return tasks;
     }
 
@@ -137,8 +143,9 @@ public class TasksResourceIT {
         assertThat(tasksList).hasSize(databaseSizeBeforeCreate + 1);
         Tasks testTasks = tasksList.get(tasksList.size() - 1);
         assertThat(testTasks.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testTasks.getContent()).isEqualTo(DEFAULT_CONTENT);
         assertThat(testTasks.getCreateTime()).isEqualTo(DEFAULT_CREATE_TIME);
-        assertThat(testTasks.getBiuldTime()).isEqualTo(DEFAULT_BIULD_TIME);
+        assertThat(testTasks.getBuildTime()).isEqualTo(DEFAULT_BUILD_TIME);
     }
 
     @Test
@@ -174,8 +181,9 @@ public class TasksResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tasks.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
             .andExpect(jsonPath("$.[*].createTime").value(hasItem(DEFAULT_CREATE_TIME.toString())))
-            .andExpect(jsonPath("$.[*].biuldTime").value(hasItem(DEFAULT_BIULD_TIME.toString())));
+            .andExpect(jsonPath("$.[*].buildTime").value(hasItem(DEFAULT_BUILD_TIME.toString())));
     }
     
     @Test
@@ -190,8 +198,9 @@ public class TasksResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(tasks.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
             .andExpect(jsonPath("$.createTime").value(DEFAULT_CREATE_TIME.toString()))
-            .andExpect(jsonPath("$.biuldTime").value(DEFAULT_BIULD_TIME.toString()));
+            .andExpect(jsonPath("$.buildTime").value(DEFAULT_BUILD_TIME.toString()));
     }
 
     @Test
@@ -216,8 +225,9 @@ public class TasksResourceIT {
         em.detach(updatedTasks);
         updatedTasks
             .name(UPDATED_NAME)
+            .content(UPDATED_CONTENT)
             .createTime(UPDATED_CREATE_TIME)
-            .biuldTime(UPDATED_BIULD_TIME);
+            .buildTime(UPDATED_BUILD_TIME);
         TasksDTO tasksDTO = tasksMapper.toDto(updatedTasks);
 
         restTasksMockMvc.perform(put("/api/tasks")
@@ -230,8 +240,9 @@ public class TasksResourceIT {
         assertThat(tasksList).hasSize(databaseSizeBeforeUpdate);
         Tasks testTasks = tasksList.get(tasksList.size() - 1);
         assertThat(testTasks.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testTasks.getContent()).isEqualTo(UPDATED_CONTENT);
         assertThat(testTasks.getCreateTime()).isEqualTo(UPDATED_CREATE_TIME);
-        assertThat(testTasks.getBiuldTime()).isEqualTo(UPDATED_BIULD_TIME);
+        assertThat(testTasks.getBuildTime()).isEqualTo(UPDATED_BUILD_TIME);
     }
 
     @Test

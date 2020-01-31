@@ -5,6 +5,7 @@ import com.pingsec.dev.service.dto.AppDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,6 +28,12 @@ public interface AppService {
      * @return the list of entities.
      */
     Page<AppDTO> findAll(Pageable pageable);
+    /**
+     * Get all the AppDTO where Tasks is {@code null}.
+     *
+     * @return the list of entities.
+     */
+    List<AppDTO> findAllWhereTasksIsNull();
 
 
     /**

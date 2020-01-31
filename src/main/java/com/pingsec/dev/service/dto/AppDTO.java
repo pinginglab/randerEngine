@@ -19,7 +19,7 @@ public class AppDTO implements Serializable {
     private String volume;
 
     @Lob
-    private String enviroment;
+    private String environment;
 
     @Lob
     private String other;
@@ -71,12 +71,12 @@ public class AppDTO implements Serializable {
         this.volume = volume;
     }
 
-    public String getEnviroment() {
-        return enviroment;
+    public String getEnvironment() {
+        return environment;
     }
 
-    public void setEnviroment(String enviroment) {
-        this.enviroment = enviroment;
+    public void setEnvironment(String environment) {
+        this.environment = environment;
     }
 
     public String getOther() {
@@ -140,7 +140,7 @@ public class AppDTO implements Serializable {
             ", network='" + getNetwork() + "'" +
             ", port='" + getPort() + "'" +
             ", volume='" + getVolume() + "'" +
-            ", enviroment='" + getEnviroment() + "'" +
+            ", environment='" + getEnvironment() + "'" +
             ", other='" + getOther() + "'" +
             ", networksId=" + getNetworksId() +
             ", imagesId=" + getImagesId() +
