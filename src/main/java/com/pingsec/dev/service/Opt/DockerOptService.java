@@ -1,40 +1,41 @@
 package com.pingsec.dev.service.Opt;
 
+import com.pingsec.dev.repository.ImagesRepository;
+import com.pingsec.dev.service.ImagesService;
+import com.pingsec.dev.service.dto.request.DockerRegistryListDTO;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 // 获取本机镜像的中间件
-// 2020-01-31 代码逻辑完成，由于直接操作docker有些危险
-// TODO:先搭建rancher通过rancher平台提供的api再进行测试
+// 2020-01-31 代码逻辑完成，由于直接操作docker-regrister有些危险
+//
 @Service
 public class DockerOptService {
-//    @Autowired
-//    private DockerConfiguration dockerConfiguration;
-//
+    private RestTemplate restTemplate;
+
 //    DockerClient dockerClient = dockerConfiguration.getDockerClient();
-//
-//    private ImagesRepository imagesRepository;
-//    private ImagesService imagesService;
-//
-//    public DockerOptService(ImagesRepository imagesRepository, ImagesService imagesService) {
-//        this.imagesRepository = imagesRepository;
-//        this.imagesService = imagesService;
-//    }
-//
-//    // 获取主机上所有镜像的数据
-//    private List<Image> getAllImage() {
-//        List<Image> images = dockerClient.listImagesCmd().withShowAll(true).exec();
-//        List<Image> result = new LinkedList<>();
-//        // 根据需要进行过滤
-//        for(Image i:images){
-//            if(i.getRepoTags().toString().contains("ctf")||i.getRepoTags().toString().contains("cve"))
-//                result.add(i);
-//        }
-//        return result;
-//    }
-//
-//    // 5s同步一次数据
-//    @Scheduled(fixedRate=5000)
-//    public void syncImage(){
+
+    private ImagesRepository imagesRepository;
+    private ImagesService imagesService;
+
+    public DockerOptService(ImagesRepository imagesRepository, ImagesService imagesService) {
+        this.imagesRepository = imagesRepository;
+        this.imagesService = imagesService;
+    }
+
+    // 获取主机上所有镜像的数据
+    private void getAllImage() {
+        DockerRegistryListDTO dockerRegistryListDTO = restTemplate.getForObject("http://127.0.0.1:5000/v2/_catalog", DockerRegistryListDTO.class);
+        for(String i:dockerRegistryListDTO.getRepositoriesList()){
+            System.out.println(i);
+        }
+    }
+
+    // 5s同步一次数据
+    @Scheduled(fixedRate=5000)
+    public void syncImage(){
+        getAllImage();
 //        List<Image> images = getAllImage();
 //        for(Image i:images){
 //            ImagesDTO imagesDTO = new ImagesDTO();
@@ -54,5 +55,5 @@ public class DockerOptService {
 //                imagesService.save(imagesDTO);
 //            }
 //        }
-//    }
+    }
 }
