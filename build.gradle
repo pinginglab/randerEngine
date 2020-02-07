@@ -198,6 +198,11 @@ dependencies {
     // Thanks for using https://jar-download.com
     compile group: 'com.github.docker-java', name: 'docker-java', version: '3.0.12'
 
+    compile group: 'br.com.basis', name: 'rancher-java-sdk', version: '1.0.0'
+
+    //feign
+    implementation('org.springframework.cloud:spring-cloud-starter-openfeign:2.0.2.RELEASE')
+
 
     // Use ", version: jhipster_dependencies_version, changing: true" if you want
     // to use a SNAPSHOT release instead of a stable release
