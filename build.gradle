@@ -193,12 +193,14 @@ dependencies {
     if (!project.hasProperty("gae")) {
         implementation platform("io.github.jhipster:jhipster-dependencies:${jhipster_dependencies_version}")
     }
-    //Thanks for using https://jar-download.com
-    compile group: 'com.github.docker-java', name: 'docker-java-core', version: '3.2.0-rc1'
-    // Thanks for using https://jar-download.com
-    compile group: 'com.github.docker-java', name: 'docker-java', version: '3.0.12'
+//    compile group: 'com.github.docker-java', name: 'docker-java-core', version: '3.2.0-rc1'
+//    compile group: 'com.github.docker-java', name: 'docker-java', version: '3.0.12'
+    compile group: 'com.tencentcloudapi', name: 'tencentcloud-sdk-java', version: '3.0.125'
 
-    compile group: 'br.com.basis', name: 'rancher-java-sdk', version: '1.0.0'
+//    compile group: 'br.com.basis', name: 'rancher-java-sdk', version: '1.0.0'
+
+    compile group: 'io.kubernetes', name: 'client-java', version: '7.0.0'
+    compile group: 'com.squareup.okhttp3', name: 'benchmarks', version: '3.12.8'
 
     //feign
     implementation('org.springframework.cloud:spring-cloud-starter-openfeign:2.0.2.RELEASE')

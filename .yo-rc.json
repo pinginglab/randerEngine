@@ -37,6 +37,17 @@
     "languages": ["en", "zh-cn"],
     "blueprints": [],
     "skipClient": true,
-    "skipUserManagement": true
+    "skipUserManagement": true,
+    "appsFolders": ["randerEngine"],
+    "directoryPath": "../",
+    "dockerRepositoryName": "ccr.ccs.tencentyun.com/pingsec/compose",
+    "dockerPushCommand": "docker push",
+    "kubernetesNamespace": "default",
+    "kubernetesServiceType": "LoadBalancer",
+    "kubernetesUseDynamicStorage": true,
+    "kubernetesStorageClassName": "",
+    "ingressDomain": "",
+    "monitoring": "elk",
+    "istio": false
   }
 }

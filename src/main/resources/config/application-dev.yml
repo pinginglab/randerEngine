@@ -43,7 +43,7 @@ spring:
       port: 8500
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mariadb://localhost:3306/randerEngine
+    url: jdbc:mariadb://localhost:13306/randerEngine
     username: dev
     password: PUKtj1hO1Rs
     hikari:
@@ -73,8 +73,8 @@ spring:
       hibernate.cache.hazelcast.instance_name: randerEngine
       hibernate.cache.use_minimal_puts: true
       hibernate.cache.hazelcast.use_lite_member: true
-    hibernate:
-      ddl-auto: update
+#    hibernate:
+#      ddl-auto: update
   #  liquibase:
 #    # Remove 'faker' if you do not want the sample data to be loaded automatically
 #    contexts: dev, faker

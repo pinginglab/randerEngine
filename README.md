@@ -1,99 +1,77 @@
-# randerEngine
+# JHipster-generated Kubernetes configuration
 
-This application was generated using JHipster 6.6.0, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.6.0](https://www.jhipster.tech/documentation-archive/v6.6.0).
+## Preparation
 
-This is a "microservice" application intended to be part of a microservice architecture, please refer to the [Doing microservices with JHipster][] page of the documentation for more information.
-
-This application is configured for Service Discovery and Configuration with Consul. On launch, it will refuse to start if it is not able to connect to Consul at [http://localhost:8500](http://localhost:8500). For more information, read our documentation on [Service Discovery and Configuration with Consul][].
-
-## Development
-
-To start your application in the dev profile, run:
-
-    ./gradlew
-
-For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].
-
-## Building for production
-
-### Packaging as jar
-
-To build the final jar and optimize the randerEngine application for production, run:
-
-    ./gradlew -Pprod clean bootJar
-
-To ensure everything worked, run:
-
-    java -jar build/libs/*.jar
-
-Refer to [Using JHipster in production][] for more details.
-
-### Packaging as war
-
-To package your application as a war in order to deploy it to an application server, run:
-
-    ./gradlew -Pprod -Pwar clean bootWar
-
-## Testing
-
-To launch your application's tests, run:
-
-    ./gradlew test integrationTest jacocoTestReport
-
-For more information, refer to the [Running tests page][].
-
-### Code quality
-
-Sonar is used to analyse code quality. You can start a local Sonar server (accessible on http://localhost:9001) with:
+You will need to push your image to a registry. If you have not done so, use the following commands to tag and push the images:
 
 ```
-docker-compose -f src/main/docker/sonar.yml up -d
+$ docker image tag randerengine ccr.ccs.tencentyun.com/pingsec/compose/randerengine
+$ docker push ccr.ccs.tencentyun.com/pingsec/compose/randerengine
 ```
 
-You can run a Sonar analysis with using the [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner) or by using the gradle plugin.
+## Deployment
 
-Then, run a Sonar analysis:
+You can deploy all your apps by running the below bash command:
 
 ```
-./gradlew -Pprod clean check jacocoTestReport sonarqube
+./kubectl-apply.sh
 ```
 
-For more information, refer to the [Code quality page][].
+## Exploring your services
 
-## Using Docker to simplify development (optional)
+```
 
-You can use Docker to improve your JHipster development experience. A number of docker-compose configuration are available in the [src/main/docker](src/main/docker) folder to launch required third party services.
+## Scaling your deployments
 
-For example, to start a mariadb database in a docker container, run:
+You can scale your apps using
 
-    docker-compose -f src/main/docker/mariadb.yml up -d
+```
 
-To stop it and remove the container, run:
+\$ kubectl scale deployment <app-name> --replicas <replica-count>
 
-    docker-compose -f src/main/docker/mariadb.yml down
+```
 
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a docker image of your app by running:
+## zero-downtime deployments
 
-    ./gradlew bootJar -Pprod jibDockerBuild
+The default way to update a running app in kubernetes, is to deploy a new image tag to your docker registry and then deploy it using
 
-Then run:
+```
 
-    docker-compose -f src/main/docker/app.yml up -d
+\$ kubectl set image deployment/<app-name>-app <app-name>=<new-image>
 
-For more information refer to [Using Docker and Docker-Compose][], this page also contains information on the docker-compose sub-generator (`jhipster docker-compose`), which is able to generate docker configurations for one or several JHipster applications.
+```
 
-## Continuous Integration (optional)
+Using livenessProbes and readinessProbe allow you to tell Kubernetes about the state of your applications, in order to ensure availablity of your services. You will need minimum 2 replicas for every application deployment if you want to have zero-downtime deployed.
+This is because the rolling upgrade strategy first stops a running replica in order to place a new. Running only one replica, will cause a short downtime during upgrades.
 
-To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
+## Monitoring tools
 
-[jhipster homepage and latest documentation]: https://www.jhipster.tech
-[jhipster 6.6.0 archive]: https://www.jhipster.tech/documentation-archive/v6.6.0
-[doing microservices with jhipster]: https://www.jhipster.tech/documentation-archive/v6.6.0/microservices-architecture/
-[using jhipster in development]: https://www.jhipster.tech/documentation-archive/v6.6.0/development/
-[service discovery and configuration with consul]: https://www.jhipster.tech/documentation-archive/v6.6.0/microservices-architecture/#consul
-[using docker and docker-compose]: https://www.jhipster.tech/documentation-archive/v6.6.0/docker-compose
-[using jhipster in production]: https://www.jhipster.tech/documentation-archive/v6.6.0/production/
-[running tests page]: https://www.jhipster.tech/documentation-archive/v6.6.0/running-tests/
-[code quality page]: https://www.jhipster.tech/documentation-archive/v6.6.0/code-quality/
-[setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.6.0/setting-up-ci/
+### JHipster console
+
+Your application logs can be found in JHipster console (powered by Kibana). You can find its service details by
+```
+
+\$ kubectl get svc jhipster-console
+
+```
+
+* If you have chosen *Ingress*, then you should be able to access Kibana using the given ingress domain.
+* If you have chosen *NodePort*, then point your browser to an IP of any of your nodes and use the node port described in the output.
+* If you have chosen *LoadBalancer*, then use the IaaS provided LB IP
+
+
+
+## Troubleshooting
+
+> my apps doesn't get pulled, because of 'imagePullBackof'
+
+Check the docker registry your Kubernetes cluster is accessing. If you are using a private registry, you should add it to your namespace by `kubectl create secret docker-registry` (check the [docs](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/) for more info)
+
+> my applications are stopped, before they can boot up
+
+This can occur if your cluster has low resource (e.g. Minikube). Increase the `initialDelaySeconds` value of livenessProbe of your deployments
+
+> my applications are starting very slow, despite I have a cluster with many resources
+
+The default setting are optimized for middle-scale clusters. You are free to increase the JAVA_OPTS environment variable, and resource requests and limits to improve the performance. Be careful!
+```
