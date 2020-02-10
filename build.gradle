@@ -202,6 +202,9 @@ dependencies {
     compile group: 'io.kubernetes', name: 'client-java', version: '7.0.0'
     compile group: 'com.squareup.okhttp3', name: 'benchmarks', version: '3.12.8'
 
+    // https://mvnrepository.com/artifact/commons-cli/commons-cli
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+
     //feign
     implementation('org.springframework.cloud:spring-cloud-starter-openfeign:2.0.2.RELEASE')
 
