@@ -1,23 +1,18 @@
-package com.pingsec.dev.service.impl.k8sopt;
-
-import com.pingsec.dev.service.k8sopt.KubeExec;
+package com.pingsec.dev.service.impl.k8sUtil;
 
 import com.google.common.io.ByteStreams;
+import com.pingsec.dev.service.k8sUtil.KubeExec;
 import io.kubernetes.client.Exec;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.util.Config;
+import org.apache.commons.cli.*;
+import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.springframework.stereotype.Service;
 
 @Service
 public class KubeExecImpl implements KubeExec {
@@ -71,12 +66,13 @@ public class KubeExecImpl implements KubeExec {
             e.printStackTrace();
         }
 
+        Process finalProc = proc;
         Thread in =
             new Thread(
                 new Runnable() {
                     public void run() {
                         try {
-                            ByteStreams.copy(System.in, proc.getOutputStream());
+                            ByteStreams.copy(System.in, finalProc.getOutputStream());
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
@@ -84,12 +80,13 @@ public class KubeExecImpl implements KubeExec {
                 });
         in.start();
 
+        Process finalProc1 = proc;
         Thread out =
             new Thread(
                 new Runnable() {
                     public void run() {
                         try {
-                            ByteStreams.copy(proc.getInputStream(), System.out);
+                            ByteStreams.copy(finalProc1.getInputStream(), System.out);
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }

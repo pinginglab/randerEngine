@@ -1,8 +1,8 @@
-package com.pingsec.dev.service.impl.k8sopt;
+package com.pingsec.dev.service.impl.k8sUtil;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.pingsec.dev.service.k8sopt.KubeWatch;
+import com.pingsec.dev.service.k8sUtil.KubeWatch;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
