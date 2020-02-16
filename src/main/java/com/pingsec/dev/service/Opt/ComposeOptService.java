@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 // 作为docker-compose脚本生产工具
 // 将直接和rancher进行交互工作
-// TODO: 后续需要进行重构，成为“作坊”的核心框架
+// TODO: 后续需要进行重构，成为“作坊”的核心组成部分
 @Service
 public class ComposeOptService {
     private AppService appService;

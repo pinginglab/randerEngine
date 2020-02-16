@@ -5,7 +5,7 @@ import io.kubernetes.client.openapi.models.V1PodList;
 
 import java.util.LinkedList;
 
-public interface KubeWatch {
+public interface KubeWatchService {
     LinkedList<JsonObject> getK8SNameSpaceList();
     V1PodList getK8SPodsForAllNamespaces();
 }

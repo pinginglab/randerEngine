@@ -1,7 +1,7 @@
 package com.pingsec.dev.service.impl.k8sUtil;
 
 import com.google.common.io.ByteStreams;
-import com.pingsec.dev.service.k8sUtil.KubeExec;
+import com.pingsec.dev.service.k8sUtil.KubeExecService;
 import io.kubernetes.client.Exec;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class KubeExecImpl implements KubeExec {
+public class KubeExecImpl implements KubeExecService {
     public void done(String[] args){
         final Options options = new Options();
         options.addOption(new Option("p", "pod", true, "The name of the pod"));

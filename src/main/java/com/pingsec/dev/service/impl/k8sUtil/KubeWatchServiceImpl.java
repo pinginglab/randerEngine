@@ -2,7 +2,7 @@ package com.pingsec.dev.service.impl.k8sUtil;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.pingsec.dev.service.k8sUtil.KubeWatch;
+import com.pingsec.dev.service.k8sUtil.KubeWatchService;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
@@ -26,8 +26,8 @@ import static java.lang.Boolean.TRUE;
 // TODO: 接口设计不规范注定会给后续的开发留下坑，一时之间没想好贵方设计，先这么用，后续根据需求，进行接口规范化设计
 // 这个类相当于kubectl中的“get ** ** ”这个操作
 @Service
-public class KubeWatchImpl implements KubeWatch {
-    private final Logger log = LoggerFactory.getLogger(KubeWatchImpl.class);
+public class KubeWatchServiceImpl implements KubeWatchService {
+    private final Logger log = LoggerFactory.getLogger(KubeWatchServiceImpl.class);
 
 //    @Scheduled(fixedRate=5000)
     public void getK8SAllNameSpaceList() {

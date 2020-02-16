@@ -29,7 +29,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @param path
      * @throws IOException
      */
-    public static Object loadYaml(String path) throws IOException {
+    public Object loadYaml(String path) throws IOException {
         Reader reader = new FileReader(path);
         return Yaml.load(reader);
     }
@@ -42,7 +42,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @return
      * @throws ApiException
      */
-    public static V1Pod createPod(String nameSpace, V1Pod body) throws ApiException {
+    public V1Pod createPod(String nameSpace, V1Pod body) throws ApiException {
 
         return new CoreV1Api().createNamespacedPod(nameSpace, body, String.valueOf(true), "true", null);
 
@@ -55,7 +55,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @param podName
      * @throws Exception
      */
-    public static void deletePod(String nameSpace, String podName) throws Exception {
+    public void deletePod(String nameSpace, String podName) throws Exception {
         new CoreV1Api().deleteNamespacedPod(podName, nameSpace, "true", "true", null, null, null, null);
     }
 
@@ -66,7 +66,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @param sv
      * @throws ApiException
      */
-    public static void createService(String nameSpace, V1Service sv) throws ApiException {
+    public void createService(String nameSpace, V1Service sv) throws ApiException {
         new CoreV1Api().createNamespacedService(nameSpace, sv, String.valueOf(true), "true", null);
     }
 
@@ -77,7 +77,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @param serviceName
      * @throws Exception
      */
-    public static void deleteService(String nameSpace, String serviceName) throws Exception {
+    public void deleteService(String nameSpace, String serviceName) throws Exception {
         new CoreV1Api().deleteNamespacedService(serviceName, nameSpace, String.valueOf(true), "true", null, null, null, null);
     }
 
@@ -88,7 +88,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @param body
      * @throws ApiException
      */
-    public static void createDeployment(String nameSpace, V1Deployment body) throws ApiException {
+    public void createDeployment(String nameSpace, V1Deployment body) throws ApiException {
         new AppsV1Api().createNamespacedDeployment(nameSpace, body, "true", null, null);
     }
 
@@ -99,11 +99,11 @@ public class KubeUtilImpl implements KubeUtilService {
      * @param deployeName
      * @throws ApiException
      */
-    public static void deleteDeployment(String nameSpace, String deployeName) throws ApiException {
+    public void deleteDeployment(String nameSpace, String deployeName) throws ApiException {
         new AppsV1Api().deleteNamespacedDeployment(deployeName, nameSpace, "true", null, null, null, null, null);
     }
 
-    public static void main(String[] args) throws Exception {
+    public void main(String[] args) throws Exception {
 //        setConfig("config");
         ApiClient client = null;
         try {

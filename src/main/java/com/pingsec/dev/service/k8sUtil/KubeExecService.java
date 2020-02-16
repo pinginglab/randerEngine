@@ -1,4 +1,4 @@
 package com.pingsec.dev.service.k8sUtil;
 
-public interface KubeCreate {
+public interface KubeExecService {
 }

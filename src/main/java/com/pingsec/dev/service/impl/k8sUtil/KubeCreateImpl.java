@@ -1,10 +1,10 @@
 package com.pingsec.dev.service.impl.k8sUtil;
 
-import com.pingsec.dev.service.k8sUtil.KubeCreate;
+import com.pingsec.dev.service.k8sUtil.KubeCreateService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class KubeCreateImpl implements KubeCreate {
+public class KubeCreateImpl implements KubeCreateService {
 //    public void createTest(){
 //        try {
 //            CoreV1Api api = new CoreV1Api();
