@@ -1,5 +1,6 @@
 package com.pingsec.dev.service.impl.k8sUtil;
 
+import com.pingsec.dev.config.KubeConfiguration;
 import com.pingsec.dev.service.k8sUtil.KubeUtilService;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
@@ -11,6 +12,8 @@ import io.kubernetes.client.openapi.models.V1Pod;
 import io.kubernetes.client.openapi.models.V1Service;
 import io.kubernetes.client.util.Config;
 import io.kubernetes.client.util.Yaml;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
@@ -22,6 +25,19 @@ import java.io.Reader;
 
 @Service
 public class KubeUtilImpl implements KubeUtilService {
+    private final Logger log = LoggerFactory.getLogger(KubeUtilImpl.class);
+    private KubeConfiguration kubeConfiguration;
+
+    public KubeUtilImpl(KubeConfiguration kubeConfiguration) {
+        this.kubeConfiguration = kubeConfiguration;
+        ApiClient client = null;
+        try {
+            client = kubeConfiguration.config();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Configuration.setDefaultApiClient(client);
+    }
 
     /**
      * 加载yaml配置文件
@@ -87,9 +103,10 @@ public class KubeUtilImpl implements KubeUtilService {
      * @param nameSpace
      * @param body
      * @throws ApiException
+     * @return
      */
-    public void createDeployment(String nameSpace, V1Deployment body) throws ApiException {
-        new AppsV1Api().createNamespacedDeployment(nameSpace, body, "true", null, null);
+    public V1Deployment createDeployment(String nameSpace, V1Deployment body) throws ApiException {
+        return new AppsV1Api().createNamespacedDeployment(nameSpace, body, true, null, null);
     }
 
     /**

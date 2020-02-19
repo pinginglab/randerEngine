@@ -13,6 +13,6 @@ public interface KubeUtilService {
     void deletePod(String nameSpace, String podName) throws Exception;
     void createService(String nameSpace, V1Service sv) throws ApiException;
     void deleteService(String nameSpace, String serviceName) throws Exception;
-    void createDeployment(String nameSpace, V1Deployment body) throws ApiException;
+    V1Deployment createDeployment(String nameSpace, V1Deployment body) throws ApiException;
     void deleteDeployment(String nameSpace, String deployeName) throws ApiException;
 }

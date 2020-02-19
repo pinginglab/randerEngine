@@ -1,12 +1,12 @@
 package com.pingsec.dev.service.impl.k8sUtil;
 
 import com.google.common.io.ByteStreams;
+import com.pingsec.dev.config.KubeConfiguration;
 import com.pingsec.dev.service.k8sUtil.KubeExecService;
 import io.kubernetes.client.Exec;
 import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
 import io.kubernetes.client.openapi.Configuration;
-import io.kubernetes.client.util.Config;
 import org.apache.commons.cli.*;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +16,12 @@ import java.util.List;
 
 @Service
 public class KubeExecImpl implements KubeExecService {
+    private KubeConfiguration kubeConfiguration;
+
+    public KubeExecImpl(KubeConfiguration kubeConfiguration) {
+        this.kubeConfiguration = kubeConfiguration;
+    }
+
     public void done(String[] args){
         final Options options = new Options();
         options.addOption(new Option("p", "pod", true, "The name of the pod"));
@@ -40,7 +46,7 @@ public class KubeExecImpl implements KubeExecService {
 
         ApiClient client = null;
         try {
-            client = Config.defaultClient();
+            client = kubeConfiguration.config();
         } catch (IOException e) {
             e.printStackTrace();
         }
