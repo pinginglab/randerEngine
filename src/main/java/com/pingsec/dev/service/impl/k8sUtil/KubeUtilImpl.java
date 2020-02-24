@@ -106,7 +106,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @return
      */
     public V1Deployment createDeployment(String nameSpace, V1Deployment body) throws ApiException {
-        return new AppsV1Api().createNamespacedDeployment(nameSpace, body, true, null, null);
+        return new AppsV1Api().createNamespacedDeployment(nameSpace, body, String.valueOf(true), null, null);
     }
 
     /**

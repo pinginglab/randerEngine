@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 
 // 作为k8s脚本生产工具，根据配置生成相关的yaml文件进行存储后考虑自动化生成
 // TODO: 后续需要进行重构，成为“作坊”的核心组成部分
+// 可是直接发送yaml文件安全吗？是不是还需要中间件进行过滤？？
+// https://www.baeldung.com/java-snake-yaml
 
 /**
  * apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
@@ -33,5 +35,6 @@ public class YamlOptService {
     // 2. 通过消息队列对场景的创建
     // 3. 通过读取数据库的形式对场景进行创建
     // 无论采用什么方式都应该对创建操作写进数据库中
+
 
 }

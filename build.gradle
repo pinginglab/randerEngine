@@ -199,11 +199,17 @@ dependencies {
 
 //    compile group: 'br.com.basis', name: 'rancher-java-sdk', version: '1.0.0'
 
+    compile 'com.appscode.voyager:client-java:0.1.0'
+
     compile group: 'io.kubernetes', name: 'client-java', version: '7.0.0'
     compile group: 'com.squareup.okhttp3', name: 'benchmarks', version: '3.12.8'
     compile group: 'org.yaml', name: 'snakeyaml', version: '1.25'
 
     compile 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    compile 'org.projectlombok:lombok:1.18.4'
+    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
 
     // https://mvnrepository.com/artifact/commons-cli/commons-cli
     compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
