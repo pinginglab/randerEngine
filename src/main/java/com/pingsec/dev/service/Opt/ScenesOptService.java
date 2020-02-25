@@ -1,25 +1,23 @@
 package com.pingsec.dev.service.Opt;
 
-import com.google.gson.JsonObject;
 import com.pingsec.dev.config.KubeConfiguration;
 import com.pingsec.dev.service.RedisService;
 import com.pingsec.dev.service.dto.ScenesDTO;
 import com.pingsec.dev.service.dto.request.DeploymentDTO;
-import com.pingsec.dev.service.dto.request.KubeRequestDTO;
 import com.pingsec.dev.service.dto.request.ServiceDTO;
 import com.pingsec.dev.service.k8sUtil.KubeUtilService;
 import com.pingsec.dev.service.k8sUtil.KubeWatchService;
-import io.kubernetes.client.openapi.ApiClient;
 import io.kubernetes.client.openapi.ApiException;
-import io.kubernetes.client.openapi.Configuration;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.models.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.*;
 
 
@@ -52,19 +50,19 @@ public class ScenesOptService {
 
     private String PREFIX_NS = "PINGSEC_NS";
 
-    @GetMapping("/nslist")
-    private HashMap<String, String> getNameSpace() {
-        // 获取namespace列表，留下api接口，方便后续进行热更新数据，后续计划前端读数据从redis中读取
-        // TODO: 这个操作存在优化空间： 1. 获取列表可以从redis中读取
-        HashMap<String, String> result = new HashMap<>();
-        LinkedList<JsonObject> linkedList = kubeWatchService.getK8SNameSpaceList();
-        linkedList.forEach(item -> {
-            System.out.println(item);
-            redisService.setHash(PREFIX_NS, "ns", item.get());
-            result.put(item.get(), item.get());
-        });
-        return result;
-    }
+//    @GetMapping("/nslist")
+//    private HashMap<String, String> getNameSpace() {
+//        // 获取namespace列表，留下api接口，方便后续进行热更新数据，后续计划前端读数据从redis中读取
+//        // TODO: 这个操作存在优化空间： 1. 获取列表可以从redis中读取
+//        HashMap<String, String> result = new HashMap<>();
+//        LinkedList<JsonObject> linkedList = kubeWatchService.getK8SNameSpaceList();
+//        linkedList.forEach(item -> {
+//            System.out.println(item);
+//            redisService.setHash(PREFIX_NS, "ns", item.get());
+//            result.put(item.get(), item.get());
+//        });
+//        return result;
+//    }
 
     @PostMapping("/ns")
     private Map<String, String> createNameSpace(@RequestBody ScenesDTO scenesDTO){

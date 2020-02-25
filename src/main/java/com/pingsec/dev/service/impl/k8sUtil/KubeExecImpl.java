@@ -44,12 +44,7 @@ public class KubeExecImpl implements KubeExecService {
             commands.add(args[i]);
         }
 
-        ApiClient client = null;
-        try {
-            client = kubeConfiguration.config();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ApiClient client = kubeConfiguration.initK8sApiClient();
         Configuration.setDefaultApiClient(client);
 
         Exec exec = new Exec();
@@ -76,6 +71,7 @@ public class KubeExecImpl implements KubeExecService {
         Thread in =
             new Thread(
                 new Runnable() {
+                    @Override
                     public void run() {
                         try {
                             ByteStreams.copy(System.in, finalProc.getOutputStream());
@@ -90,6 +86,7 @@ public class KubeExecImpl implements KubeExecService {
         Thread out =
             new Thread(
                 new Runnable() {
+                    @Override
                     public void run() {
                         try {
                             ByteStreams.copy(finalProc1.getInputStream(), System.out);

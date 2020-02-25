@@ -35,11 +35,7 @@ public class KubeWatchServiceImpl implements KubeWatchService {
         this.kubeConfiguration = kubeConfiguration;
         this.client = client;
         this.api = api;
-        try {
-            client = kubeConfiguration.config();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        client = kubeConfiguration.initK8sApiClient();
         Configuration.setDefaultApiClient(client);
     }
 
@@ -62,6 +58,7 @@ public class KubeWatchServiceImpl implements KubeWatchService {
 
 
 
+    @Override
     public LinkedList<JsonObject> getK8SNameSpaceList() {
         LinkedList<JsonObject> nameSpaceList = new LinkedList<>();
 //    相当于kubectl get namespaces
@@ -93,6 +90,7 @@ public class KubeWatchServiceImpl implements KubeWatchService {
         return nameSpaceList;
     }
 
+    @Override
     public V1PodList getK8SPodsForAllNamespaces() {
         try {
             ApiClient client = Config.defaultClient();

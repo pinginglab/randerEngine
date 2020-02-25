@@ -21,8 +21,8 @@ import java.io.InputStream;
 @Slf4j
 @Configuration
 public class KubeConfiguration {
-    private static final String CONFIG_KEY = "~/.kube/config"; // 本地的开发环境配置
-    private static final String CONFIG_DEBUG_KEY = "~/.kube/config";
+    private static final String CONFIG_KEY = "resources/config/cls-f5m05hg3-config"; // 本地的开发环境配置
+    private static final String CONFIG_DEBUG_KEY = "resources/config/cls-f5m05hg3-config";
     private final Logger log = LoggerFactory.getLogger(KubeConfiguration.class);
 
     @Value("${" + CONFIG_KEY + "}")

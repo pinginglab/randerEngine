@@ -30,12 +30,7 @@ public class KubeUtilImpl implements KubeUtilService {
 
     public KubeUtilImpl(KubeConfiguration kubeConfiguration) {
         this.kubeConfiguration = kubeConfiguration;
-        ApiClient client = null;
-        try {
-            client = kubeConfiguration.config();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ApiClient client = kubeConfiguration.initK8sApiClient();
         Configuration.setDefaultApiClient(client);
     }
 
@@ -45,6 +40,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @param path
      * @throws IOException
      */
+    @Override
     public Object loadYaml(String path) throws IOException {
         Reader reader = new FileReader(path);
         return Yaml.load(reader);
@@ -58,6 +54,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @return
      * @throws ApiException
      */
+    @Override
     public V1Pod createPod(String nameSpace, V1Pod body) throws ApiException {
 
         return new CoreV1Api().createNamespacedPod(nameSpace, body, String.valueOf(true), "true", null);
@@ -71,6 +68,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @param podName
      * @throws Exception
      */
+    @Override
     public void deletePod(String nameSpace, String podName) throws Exception {
         new CoreV1Api().deleteNamespacedPod(podName, nameSpace, "true", "true", null, null, null, null);
     }
@@ -82,6 +80,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @param sv
      * @throws ApiException
      */
+    @Override
     public void createService(String nameSpace, V1Service sv) throws ApiException {
         new CoreV1Api().createNamespacedService(nameSpace, sv, String.valueOf(true), "true", null);
     }
@@ -93,6 +92,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @param serviceName
      * @throws Exception
      */
+    @Override
     public void deleteService(String nameSpace, String serviceName) throws Exception {
         new CoreV1Api().deleteNamespacedService(serviceName, nameSpace, String.valueOf(true), "true", null, null, null, null);
     }
@@ -105,6 +105,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @throws ApiException
      * @return
      */
+    @Override
     public V1Deployment createDeployment(String nameSpace, V1Deployment body) throws ApiException {
         return new AppsV1Api().createNamespacedDeployment(nameSpace, body, String.valueOf(true), null, null);
     }
@@ -116,6 +117,7 @@ public class KubeUtilImpl implements KubeUtilService {
      * @param deployeName
      * @throws ApiException
      */
+    @Override
     public void deleteDeployment(String nameSpace, String deployeName) throws ApiException {
         new AppsV1Api().deleteNamespacedDeployment(deployeName, nameSpace, "true", null, null, null, null, null);
     }
