@@ -10,15 +10,11 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "creater",
+            "fieldName": "builder",
             "fieldType": "String"
         },
         {
-            "fieldName": "protect",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "picture",
+            "fieldName": "image",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "image"
         },
@@ -35,6 +31,10 @@
         {
             "fieldName": "score",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "latestDate",
+            "fieldType": "Instant"
         }
     ],
     "relationships": [],

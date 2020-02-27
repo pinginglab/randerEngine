@@ -22,16 +22,13 @@
             <column name="author" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="creater" type="varchar(255)">
+            <column name="builder" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="protect" type="varchar(255)">
+            <column name="image" type="longblob">
                 <constraints nullable="true" />
             </column>
-            <column name="picture" type="longblob">
-                <constraints nullable="true" />
-            </column>
-            <column name="picture_content_type" type="varchar(255)">
+            <column name="image_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="creater_ing" type="${clobType}">
@@ -43,8 +40,12 @@
             <column name="score" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="latest_date" type="datetime">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="course" columnName="latest_date" columnDataType="datetime"/>
     </changeSet>
 
     <changeSet id="20200224141141-1-relations" author="jhipster">
@@ -68,13 +69,13 @@
             <column name="id" type="numeric"/>
             <column name="name" type="string"/>
             <column name="author" type="string"/>
-            <column name="creater" type="string"/>
-            <column name="protect" type="string"/>
-            <column name="picture" type="blob"/>
-            <column name="picture_content_type" type="string"/>
+            <column name="builder" type="string"/>
+            <column name="image" type="blob"/>
+            <column name="image_content_type" type="string"/>
             <column name="creater_ing" type="clob"/>
             <column name="other" type="clob"/>
             <column name="score" type="string"/>
+            <column name="latest_date" type="datetime"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

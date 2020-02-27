@@ -5,6 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 /**
  * A Course.
@@ -26,18 +27,15 @@ public class Course implements Serializable {
     @Column(name = "author")
     private String author;
 
-    @Column(name = "creater")
-    private String creater;
-
-    @Column(name = "protect")
-    private String protect;
+    @Column(name = "builder")
+    private String builder;
 
     @Lob
-    @Column(name = "picture")
-    private byte[] picture;
+    @Column(name = "image")
+    private byte[] image;
 
-    @Column(name = "picture_content_type")
-    private String pictureContentType;
+    @Column(name = "image_content_type")
+    private String imageContentType;
 
     @Lob
     @Column(name = "creater_ing")
@@ -49,6 +47,9 @@ public class Course implements Serializable {
 
     @Column(name = "score")
     private String score;
+
+    @Column(name = "latest_date")
+    private Instant latestDate;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -85,56 +86,43 @@ public class Course implements Serializable {
         this.author = author;
     }
 
-    public String getCreater() {
-        return creater;
+    public String getBuilder() {
+        return builder;
     }
 
-    public Course creater(String creater) {
-        this.creater = creater;
+    public Course builder(String builder) {
+        this.builder = builder;
         return this;
     }
 
-    public void setCreater(String creater) {
-        this.creater = creater;
+    public void setBuilder(String builder) {
+        this.builder = builder;
     }
 
-    public String getProtect() {
-        return protect;
+    public byte[] getImage() {
+        return image;
     }
 
-    public Course protect(String protect) {
-        this.protect = protect;
+    public Course image(byte[] image) {
+        this.image = image;
         return this;
     }
 
-    public void setProtect(String protect) {
-        this.protect = protect;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
-    public byte[] getPicture() {
-        return picture;
+    public String getImageContentType() {
+        return imageContentType;
     }
 
-    public Course picture(byte[] picture) {
-        this.picture = picture;
+    public Course imageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
         return this;
     }
 
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public String getPictureContentType() {
-        return pictureContentType;
-    }
-
-    public Course pictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
-        return this;
-    }
-
-    public void setPictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
     }
 
     public String getCreaterIng() {
@@ -175,6 +163,19 @@ public class Course implements Serializable {
     public void setScore(String score) {
         this.score = score;
     }
+
+    public Instant getLatestDate() {
+        return latestDate;
+    }
+
+    public Course latestDate(Instant latestDate) {
+        this.latestDate = latestDate;
+        return this;
+    }
+
+    public void setLatestDate(Instant latestDate) {
+        this.latestDate = latestDate;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -199,13 +200,13 @@ public class Course implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", author='" + getAuthor() + "'" +
-            ", creater='" + getCreater() + "'" +
-            ", protect='" + getProtect() + "'" +
-            ", picture='" + getPicture() + "'" +
-            ", pictureContentType='" + getPictureContentType() + "'" +
+            ", builder='" + getBuilder() + "'" +
+            ", image='" + getImage() + "'" +
+            ", imageContentType='" + getImageContentType() + "'" +
             ", createrIng='" + getCreaterIng() + "'" +
             ", other='" + getOther() + "'" +
             ", score='" + getScore() + "'" +
+            ", latestDate='" + getLatestDate() + "'" +
             "}";
     }
 }

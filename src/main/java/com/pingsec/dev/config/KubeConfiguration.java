@@ -5,43 +5,41 @@ import io.kubernetes.client.openapi.apis.AppsV1Api;
 import io.kubernetes.client.openapi.apis.CoreV1Api;
 import io.kubernetes.client.openapi.apis.ExtensionsV1beta1Api;
 import io.kubernetes.client.openapi.apis.RbacAuthorizationV1Api;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
-
-@Slf4j
+//@Slf4j
 @Configuration
 public class KubeConfiguration {
-    private static final String CONFIG_KEY = "resources/config/cls-f5m05hg3-config"; // 本地的开发环境配置
+    // 本地的开发环境配置
+    private static final String CONFIG_KEY = "src/main/resources/config/cls-f5m05hg3-config";
     private static final String CONFIG_DEBUG_KEY = "resources/config/cls-f5m05hg3-config";
     private final Logger log = LoggerFactory.getLogger(KubeConfiguration.class);
 
-    @Value("${" + CONFIG_KEY + "}")
-    private String config;
-
-    @Value("${" + CONFIG_DEBUG_KEY + "}")
-    private String debug;
+//    @Value("${" + CONFIG_KEY + "}")
+//    private String config;
+//
+//    @Value("${" + CONFIG_DEBUG_KEY + "}")
+//    private String debug;
 
     @Bean
     @Primary
     public ApiClient initK8sApiClient() {
         try {
-            InputStream configStream = new ByteArrayInputStream(config.getBytes());
-            final ApiClient apiClient = io.kubernetes.client.util.Config.fromConfig(configStream);
+//            InputStream configStream = new ByteArrayInputStream(CONFIG_KEY.getBytes());
+//            final ApiClient apiClient = io.kubernetes.client.util.Config.fromConfig(configStream);
+            final ApiClient apiClient = io.kubernetes.client.util.Config.fromConfig(CONFIG_KEY);
             // 5分钟的超时时间
             apiClient.setConnectTimeout(5 * 60 * 1000);
-            apiClient.setDebugging(Boolean.valueOf(debug));
+//            apiClient.setDebugging(Boolean.valueOf(debug));
 //            client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(kubeConfigPath))).build();
-//            Configuration.setDefaultApiClient(client);
+//            ApiClient client = ClientBuilder.kubeconfig(KubeConfig.loadKubeConfig(new FileReader(CONFIG_KEY))).build();
+//            io.kubernetes.client.openapi.Configuration.setDefaultApiClient(client);
             io.kubernetes.client.openapi.Configuration.setDefaultApiClient(apiClient);
 //            io.kubernetes.client.Configuration.setDefaultApiClient(apiClient);
 //            ConfigCache.getInstance().addChange((key, value) -> {

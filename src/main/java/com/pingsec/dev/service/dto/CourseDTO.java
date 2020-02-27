@@ -1,7 +1,8 @@
 package com.pingsec.dev.service.dto;
-import java.io.Serializable;
-import java.util.Objects;
 import javax.persistence.Lob;
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.Objects;
 
 /**
  * A DTO for the {@link com.pingsec.dev.domain.Course} entity.
@@ -14,14 +15,12 @@ public class CourseDTO implements Serializable {
 
     private String author;
 
-    private String creater;
-
-    private String protect;
+    private String builder;
 
     @Lob
-    private byte[] picture;
+    private byte[] image;
 
-    private String pictureContentType;
+    private String imageContentType;
     @Lob
     private String createrIng;
 
@@ -29,6 +28,8 @@ public class CourseDTO implements Serializable {
     private String other;
 
     private String score;
+
+    private Instant latestDate;
 
 
     public Long getId() {
@@ -55,36 +56,28 @@ public class CourseDTO implements Serializable {
         this.author = author;
     }
 
-    public String getCreater() {
-        return creater;
+    public String getBuilder() {
+        return builder;
     }
 
-    public void setCreater(String creater) {
-        this.creater = creater;
+    public void setBuilder(String builder) {
+        this.builder = builder;
     }
 
-    public String getProtect() {
-        return protect;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setProtect(String protect) {
-        this.protect = protect;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
-    public byte[] getPicture() {
-        return picture;
+    public String getImageContentType() {
+        return imageContentType;
     }
 
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
-    }
-
-    public String getPictureContentType() {
-        return pictureContentType;
-    }
-
-    public void setPictureContentType(String pictureContentType) {
-        this.pictureContentType = pictureContentType;
+    public void setImageContentType(String imageContentType) {
+        this.imageContentType = imageContentType;
     }
 
     public String getCreaterIng() {
@@ -109,6 +102,14 @@ public class CourseDTO implements Serializable {
 
     public void setScore(String score) {
         this.score = score;
+    }
+
+    public Instant getLatestDate() {
+        return latestDate;
+    }
+
+    public void setLatestDate(Instant latestDate) {
+        this.latestDate = latestDate;
     }
 
     @Override
@@ -138,12 +139,12 @@ public class CourseDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", author='" + getAuthor() + "'" +
-            ", creater='" + getCreater() + "'" +
-            ", protect='" + getProtect() + "'" +
-            ", picture='" + getPicture() + "'" +
+            ", builder='" + getBuilder() + "'" +
+            ", image='" + getImage() + "'" +
             ", createrIng='" + getCreaterIng() + "'" +
             ", other='" + getOther() + "'" +
             ", score='" + getScore() + "'" +
+            ", latestDate='" + getLatestDate() + "'" +
             "}";
     }
 }

@@ -24,6 +24,8 @@ import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static com.pingsec.dev.web.rest.TestUtil.createFormattingConversionService;
@@ -44,16 +46,13 @@ public class CourseResourceIT {
     private static final String DEFAULT_AUTHOR = "AAAAAAAAAA";
     private static final String UPDATED_AUTHOR = "BBBBBBBBBB";
 
-    private static final String DEFAULT_CREATER = "AAAAAAAAAA";
-    private static final String UPDATED_CREATER = "BBBBBBBBBB";
+    private static final String DEFAULT_BUILDER = "AAAAAAAAAA";
+    private static final String UPDATED_BUILDER = "BBBBBBBBBB";
 
-    private static final String DEFAULT_PROTECT = "AAAAAAAAAA";
-    private static final String UPDATED_PROTECT = "BBBBBBBBBB";
-
-    private static final byte[] DEFAULT_PICTURE = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_PICTURE = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_PICTURE_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_PICTURE_CONTENT_TYPE = "image/png";
+    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
     private static final String DEFAULT_CREATER_ING = "AAAAAAAAAA";
     private static final String UPDATED_CREATER_ING = "BBBBBBBBBB";
@@ -63,6 +62,9 @@ public class CourseResourceIT {
 
     private static final String DEFAULT_SCORE = "AAAAAAAAAA";
     private static final String UPDATED_SCORE = "BBBBBBBBBB";
+
+    private static final Instant DEFAULT_LATEST_DATE = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_LATEST_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private CourseRepository courseRepository;
@@ -114,13 +116,13 @@ public class CourseResourceIT {
         Course course = new Course()
             .name(DEFAULT_NAME)
             .author(DEFAULT_AUTHOR)
-            .creater(DEFAULT_CREATER)
-            .protect(DEFAULT_PROTECT)
-            .picture(DEFAULT_PICTURE)
-            .pictureContentType(DEFAULT_PICTURE_CONTENT_TYPE)
+            .builder(DEFAULT_BUILDER)
+            .image(DEFAULT_IMAGE)
+            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
             .createrIng(DEFAULT_CREATER_ING)
             .other(DEFAULT_OTHER)
-            .score(DEFAULT_SCORE);
+            .score(DEFAULT_SCORE)
+            .latestDate(DEFAULT_LATEST_DATE);
         return course;
     }
     /**
@@ -133,13 +135,13 @@ public class CourseResourceIT {
         Course course = new Course()
             .name(UPDATED_NAME)
             .author(UPDATED_AUTHOR)
-            .creater(UPDATED_CREATER)
-            .protect(UPDATED_PROTECT)
-            .picture(UPDATED_PICTURE)
-            .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
+            .builder(UPDATED_BUILDER)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
             .createrIng(UPDATED_CREATER_ING)
             .other(UPDATED_OTHER)
-            .score(UPDATED_SCORE);
+            .score(UPDATED_SCORE)
+            .latestDate(UPDATED_LATEST_DATE);
         return course;
     }
 
@@ -166,13 +168,13 @@ public class CourseResourceIT {
         Course testCourse = courseList.get(courseList.size() - 1);
         assertThat(testCourse.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testCourse.getAuthor()).isEqualTo(DEFAULT_AUTHOR);
-        assertThat(testCourse.getCreater()).isEqualTo(DEFAULT_CREATER);
-        assertThat(testCourse.getProtect()).isEqualTo(DEFAULT_PROTECT);
-        assertThat(testCourse.getPicture()).isEqualTo(DEFAULT_PICTURE);
-        assertThat(testCourse.getPictureContentType()).isEqualTo(DEFAULT_PICTURE_CONTENT_TYPE);
+        assertThat(testCourse.getBuilder()).isEqualTo(DEFAULT_BUILDER);
+        assertThat(testCourse.getImage()).isEqualTo(DEFAULT_IMAGE);
+        assertThat(testCourse.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         assertThat(testCourse.getCreaterIng()).isEqualTo(DEFAULT_CREATER_ING);
         assertThat(testCourse.getOther()).isEqualTo(DEFAULT_OTHER);
         assertThat(testCourse.getScore()).isEqualTo(DEFAULT_SCORE);
+        assertThat(testCourse.getLatestDate()).isEqualTo(DEFAULT_LATEST_DATE);
     }
 
     @Test
@@ -209,13 +211,13 @@ public class CourseResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(course.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].author").value(hasItem(DEFAULT_AUTHOR)))
-            .andExpect(jsonPath("$.[*].creater").value(hasItem(DEFAULT_CREATER)))
-            .andExpect(jsonPath("$.[*].protect").value(hasItem(DEFAULT_PROTECT)))
-            .andExpect(jsonPath("$.[*].pictureContentType").value(hasItem(DEFAULT_PICTURE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].picture").value(hasItem(Base64Utils.encodeToString(DEFAULT_PICTURE))))
+            .andExpect(jsonPath("$.[*].builder").value(hasItem(DEFAULT_BUILDER)))
+            .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
             .andExpect(jsonPath("$.[*].createrIng").value(hasItem(DEFAULT_CREATER_ING.toString())))
             .andExpect(jsonPath("$.[*].other").value(hasItem(DEFAULT_OTHER.toString())))
-            .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)));
+            .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)))
+            .andExpect(jsonPath("$.[*].latestDate").value(hasItem(DEFAULT_LATEST_DATE.toString())));
     }
     
     @Test
@@ -231,13 +233,13 @@ public class CourseResourceIT {
             .andExpect(jsonPath("$.id").value(course.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.author").value(DEFAULT_AUTHOR))
-            .andExpect(jsonPath("$.creater").value(DEFAULT_CREATER))
-            .andExpect(jsonPath("$.protect").value(DEFAULT_PROTECT))
-            .andExpect(jsonPath("$.pictureContentType").value(DEFAULT_PICTURE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.picture").value(Base64Utils.encodeToString(DEFAULT_PICTURE)))
+            .andExpect(jsonPath("$.builder").value(DEFAULT_BUILDER))
+            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
             .andExpect(jsonPath("$.createrIng").value(DEFAULT_CREATER_ING.toString()))
             .andExpect(jsonPath("$.other").value(DEFAULT_OTHER.toString()))
-            .andExpect(jsonPath("$.score").value(DEFAULT_SCORE));
+            .andExpect(jsonPath("$.score").value(DEFAULT_SCORE))
+            .andExpect(jsonPath("$.latestDate").value(DEFAULT_LATEST_DATE.toString()));
     }
 
     @Test
@@ -263,13 +265,13 @@ public class CourseResourceIT {
         updatedCourse
             .name(UPDATED_NAME)
             .author(UPDATED_AUTHOR)
-            .creater(UPDATED_CREATER)
-            .protect(UPDATED_PROTECT)
-            .picture(UPDATED_PICTURE)
-            .pictureContentType(UPDATED_PICTURE_CONTENT_TYPE)
+            .builder(UPDATED_BUILDER)
+            .image(UPDATED_IMAGE)
+            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
             .createrIng(UPDATED_CREATER_ING)
             .other(UPDATED_OTHER)
-            .score(UPDATED_SCORE);
+            .score(UPDATED_SCORE)
+            .latestDate(UPDATED_LATEST_DATE);
         CourseDTO courseDTO = courseMapper.toDto(updatedCourse);
 
         restCourseMockMvc.perform(put("/api/courses")
@@ -283,13 +285,13 @@ public class CourseResourceIT {
         Course testCourse = courseList.get(courseList.size() - 1);
         assertThat(testCourse.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testCourse.getAuthor()).isEqualTo(UPDATED_AUTHOR);
-        assertThat(testCourse.getCreater()).isEqualTo(UPDATED_CREATER);
-        assertThat(testCourse.getProtect()).isEqualTo(UPDATED_PROTECT);
-        assertThat(testCourse.getPicture()).isEqualTo(UPDATED_PICTURE);
-        assertThat(testCourse.getPictureContentType()).isEqualTo(UPDATED_PICTURE_CONTENT_TYPE);
+        assertThat(testCourse.getBuilder()).isEqualTo(UPDATED_BUILDER);
+        assertThat(testCourse.getImage()).isEqualTo(UPDATED_IMAGE);
+        assertThat(testCourse.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testCourse.getCreaterIng()).isEqualTo(UPDATED_CREATER_ING);
         assertThat(testCourse.getOther()).isEqualTo(UPDATED_OTHER);
         assertThat(testCourse.getScore()).isEqualTo(UPDATED_SCORE);
+        assertThat(testCourse.getLatestDate()).isEqualTo(UPDATED_LATEST_DATE);
     }
 
     @Test
