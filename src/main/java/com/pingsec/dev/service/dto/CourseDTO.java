@@ -18,10 +18,6 @@ public class CourseDTO implements Serializable {
     private String builder;
 
     @Lob
-    private byte[] image;
-
-    private String imageContentType;
-    @Lob
     private String createrIng;
 
     @Lob
@@ -62,22 +58,6 @@ public class CourseDTO implements Serializable {
 
     public void setBuilder(String builder) {
         this.builder = builder;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public String getImageContentType() {
-        return imageContentType;
-    }
-
-    public void setImageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
     }
 
     public String getCreaterIng() {
@@ -140,7 +120,6 @@ public class CourseDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", author='" + getAuthor() + "'" +
             ", builder='" + getBuilder() + "'" +
-            ", image='" + getImage() + "'" +
             ", createrIng='" + getCreaterIng() + "'" +
             ", other='" + getOther() + "'" +
             ", score='" + getScore() + "'" +

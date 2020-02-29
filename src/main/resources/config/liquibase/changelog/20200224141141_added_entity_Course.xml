@@ -25,12 +25,6 @@
             <column name="builder" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="image" type="longblob">
-                <constraints nullable="true" />
-            </column>
-            <column name="image_content_type" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
             <column name="creater_ing" type="${clobType}">
                 <constraints nullable="true" />
             </column>
@@ -70,8 +64,6 @@
             <column name="name" type="string"/>
             <column name="author" type="string"/>
             <column name="builder" type="string"/>
-            <column name="image" type="blob"/>
-            <column name="image_content_type" type="string"/>
             <column name="creater_ing" type="clob"/>
             <column name="other" type="clob"/>
             <column name="score" type="string"/>

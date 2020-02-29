@@ -78,8 +78,8 @@ spring:
       hibernate.cache.hazelcast.instance_name: randerEngine
       hibernate.cache.use_minimal_puts: true
       hibernate.cache.hazelcast.use_lite_member: true
-#    hibernate:
-#      ddl-auto: update
+    hibernate:
+      ddl-auto: update
   #  liquibase:
 #    # Remove 'faker' if you do not want the sample data to be loaded automatically
 #    contexts: dev, faker

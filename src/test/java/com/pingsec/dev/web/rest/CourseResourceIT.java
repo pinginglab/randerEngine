@@ -49,11 +49,6 @@ public class CourseResourceIT {
     private static final String DEFAULT_BUILDER = "AAAAAAAAAA";
     private static final String UPDATED_BUILDER = "BBBBBBBBBB";
 
-    private static final byte[] DEFAULT_IMAGE = TestUtil.createByteArray(1, "0");
-    private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(1, "1");
-    private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
-    private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
-
     private static final String DEFAULT_CREATER_ING = "AAAAAAAAAA";
     private static final String UPDATED_CREATER_ING = "BBBBBBBBBB";
 
@@ -117,8 +112,6 @@ public class CourseResourceIT {
             .name(DEFAULT_NAME)
             .author(DEFAULT_AUTHOR)
             .builder(DEFAULT_BUILDER)
-            .image(DEFAULT_IMAGE)
-            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
             .createrIng(DEFAULT_CREATER_ING)
             .other(DEFAULT_OTHER)
             .score(DEFAULT_SCORE)
@@ -136,8 +129,6 @@ public class CourseResourceIT {
             .name(UPDATED_NAME)
             .author(UPDATED_AUTHOR)
             .builder(UPDATED_BUILDER)
-            .image(UPDATED_IMAGE)
-            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
             .createrIng(UPDATED_CREATER_ING)
             .other(UPDATED_OTHER)
             .score(UPDATED_SCORE)
@@ -169,8 +160,6 @@ public class CourseResourceIT {
         assertThat(testCourse.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testCourse.getAuthor()).isEqualTo(DEFAULT_AUTHOR);
         assertThat(testCourse.getBuilder()).isEqualTo(DEFAULT_BUILDER);
-        assertThat(testCourse.getImage()).isEqualTo(DEFAULT_IMAGE);
-        assertThat(testCourse.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         assertThat(testCourse.getCreaterIng()).isEqualTo(DEFAULT_CREATER_ING);
         assertThat(testCourse.getOther()).isEqualTo(DEFAULT_OTHER);
         assertThat(testCourse.getScore()).isEqualTo(DEFAULT_SCORE);
@@ -212,8 +201,6 @@ public class CourseResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].author").value(hasItem(DEFAULT_AUTHOR)))
             .andExpect(jsonPath("$.[*].builder").value(hasItem(DEFAULT_BUILDER)))
-            .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
             .andExpect(jsonPath("$.[*].createrIng").value(hasItem(DEFAULT_CREATER_ING.toString())))
             .andExpect(jsonPath("$.[*].other").value(hasItem(DEFAULT_OTHER.toString())))
             .andExpect(jsonPath("$.[*].score").value(hasItem(DEFAULT_SCORE)))
@@ -234,8 +221,6 @@ public class CourseResourceIT {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.author").value(DEFAULT_AUTHOR))
             .andExpect(jsonPath("$.builder").value(DEFAULT_BUILDER))
-            .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
-            .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
             .andExpect(jsonPath("$.createrIng").value(DEFAULT_CREATER_ING.toString()))
             .andExpect(jsonPath("$.other").value(DEFAULT_OTHER.toString()))
             .andExpect(jsonPath("$.score").value(DEFAULT_SCORE))
@@ -266,8 +251,6 @@ public class CourseResourceIT {
             .name(UPDATED_NAME)
             .author(UPDATED_AUTHOR)
             .builder(UPDATED_BUILDER)
-            .image(UPDATED_IMAGE)
-            .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
             .createrIng(UPDATED_CREATER_ING)
             .other(UPDATED_OTHER)
             .score(UPDATED_SCORE)
@@ -286,8 +269,6 @@ public class CourseResourceIT {
         assertThat(testCourse.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testCourse.getAuthor()).isEqualTo(UPDATED_AUTHOR);
         assertThat(testCourse.getBuilder()).isEqualTo(UPDATED_BUILDER);
-        assertThat(testCourse.getImage()).isEqualTo(UPDATED_IMAGE);
-        assertThat(testCourse.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testCourse.getCreaterIng()).isEqualTo(UPDATED_CREATER_ING);
         assertThat(testCourse.getOther()).isEqualTo(UPDATED_OTHER);
         assertThat(testCourse.getScore()).isEqualTo(UPDATED_SCORE);

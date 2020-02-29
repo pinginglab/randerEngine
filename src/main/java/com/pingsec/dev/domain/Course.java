@@ -31,13 +31,6 @@ public class Course implements Serializable {
     private String builder;
 
     @Lob
-    @Column(name = "image")
-    private byte[] image;
-
-    @Column(name = "image_content_type")
-    private String imageContentType;
-
-    @Lob
     @Column(name = "creater_ing")
     private String createrIng;
 
@@ -97,32 +90,6 @@ public class Course implements Serializable {
 
     public void setBuilder(String builder) {
         this.builder = builder;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public Course image(byte[] image) {
-        this.image = image;
-        return this;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public String getImageContentType() {
-        return imageContentType;
-    }
-
-    public Course imageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
-        return this;
-    }
-
-    public void setImageContentType(String imageContentType) {
-        this.imageContentType = imageContentType;
     }
 
     public String getCreaterIng() {
@@ -201,8 +168,6 @@ public class Course implements Serializable {
             ", name='" + getName() + "'" +
             ", author='" + getAuthor() + "'" +
             ", builder='" + getBuilder() + "'" +
-            ", image='" + getImage() + "'" +
-            ", imageContentType='" + getImageContentType() + "'" +
             ", createrIng='" + getCreaterIng() + "'" +
             ", other='" + getOther() + "'" +
             ", score='" + getScore() + "'" +
